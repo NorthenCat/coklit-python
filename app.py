@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for, send_file
 import pandas as pd
 import numpy as np
 import os
@@ -6,6 +6,7 @@ from datetime import datetime
 import uuid
 from fuzzywuzzy import fuzz
 import tempfile
+from io import BytesIO
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Change this to a random secret key
@@ -174,21 +175,41 @@ def match_data_with_mapping(df1, df2, field_mappings, similarity_threshold=50):
         # Create result entry using normalized data to ensure consistent structure
         file1_data, file2_data = normalize_result_data(row1, best_match, field_mappings)
         
+        # Check if all field-specific accuracy requirements are met
+        all_fields_pass = True
+        if best_match is not None:
+            for mapping in field_mappings:
+                field1 = mapping['field1']
+                field2 = mapping['field2']
+                min_accuracy = mapping.get('min_accuracy', 50)  # Default to 50% if not specified
+                mapping_key = f"{field1}_{field2}"
+                
+                if mapping_key in best_field_scores:
+                    field_accuracy = best_field_scores[mapping_key]
+                    if field_accuracy < min_accuracy:
+                        all_fields_pass = False
+                        break
+        
+        # A match is valid if: overall score >= threshold AND all fields meet their requirements
+        is_valid_match = (best_score >= similarity_threshold and 
+                         best_match is not None and 
+                         all_fields_pass)
+        
         result_entry = {
             'file1_data': file1_data,
             'file2_data': file2_data,
             'overall_accuracy': round(best_score, 2),
             'field_accuracies': best_field_scores,
-            'is_match': best_score >= similarity_threshold
+            'is_match': is_valid_match
         }
         
-        if best_score >= similarity_threshold and best_match is not None:
+        if is_valid_match:
             # Mark this File 2 row as used (PENTING!)
             matched_indices_df2.add(best_idx2)
             results['matched_data'].append(result_entry)
             results['summary']['matched_count'] += 1
         else:
-            # PERBAIKAN: Jangan assign best_match jika tidak memenuhi threshold
+            # PERBAIKAN: Jangan assign best_match jika tidak memenuhi threshold atau field requirements
             # Set file2_data to None untuk data yang tidak cocok
             file1_data, _ = normalize_result_data(row1, None, field_mappings)
             empty_file2_data = {mapping['field2']: None for mapping in field_mappings}
@@ -196,8 +217,8 @@ def match_data_with_mapping(df1, df2, field_mappings, similarity_threshold=50):
             unmatched_result = {
                 'file1_data': file1_data,
                 'file2_data': empty_file2_data,
-                'overall_accuracy': 0.0,
-                'field_accuracies': {},
+                'overall_accuracy': round(best_score, 2) if best_match is not None else 0.0,
+                'field_accuracies': best_field_scores if best_match is not None else {},
                 'is_match': False
             }
             results['unmatched_data'].append(unmatched_result)
@@ -513,6 +534,9 @@ def process_matching():
         if 'field_mappings' in data and data['field_mappings']:
             # New field mapping approach
             field_mappings = data['field_mappings']
+            # Store in session for export functionality
+            session['field_mappings'] = field_mappings
+            session['similarity_threshold'] = similarity_threshold
             results = match_data_with_mapping(df1, df2, field_mappings, similarity_threshold)
         elif 'fields_to_match' in data and data['fields_to_match']:
             # Legacy approach for backward compatibility
@@ -522,6 +546,111 @@ def process_matching():
             return jsonify({'error': 'No fields specified for matching'}), 400
         
         return jsonify(results)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/export', methods=['POST'])
+def export_data():
+    try:
+        data = request.json
+        export_type = data.get('type')  # 'matched' or 'unmatched'
+        filepath1 = data.get('filepath1') or session.get('filepath1')
+        filepath2 = data.get('filepath2') or session.get('filepath2')
+        
+        if not filepath1 or not filepath2:
+            return jsonify({'error': 'File paths not found. Please upload files first.'}), 400
+        
+        # Load the original data
+        df1, error1 = load_data(filepath1)
+        df2, error2 = load_data(filepath2)
+        
+        if error1 or error2:
+            return jsonify({'error': f'Error loading files: {error1 or error2}'}), 400
+        
+        # Get the matching results from session if available
+        field_mappings = session.get('field_mappings', [])
+        similarity_threshold = session.get('similarity_threshold', 50)
+        
+        if not field_mappings:
+            return jsonify({'error': 'No field mappings found. Please process matching first.'}), 400
+        
+        # Perform matching to get the results
+        results = match_data_with_mapping(df1, df2, field_mappings, similarity_threshold)
+        
+        # Create Excel file in memory
+        output = BytesIO()
+        
+        if export_type == 'matched':
+            # For matched data, export only File 1 data with accuracy scores
+            matched_data = results['matched_data']
+            if matched_data:
+                # Prepare export data with File 1 data and accuracy information
+                export_records = []
+                for item in matched_data:
+                    record = {}
+                    # Add all File 1 data
+                    if item.get('file1_data'):
+                        record.update(item['file1_data'])
+                    
+                    # Add accuracy information
+                    record['Overall_Accuracy'] = round(item.get('overall_accuracy', 0), 2)
+                    
+                    # Add individual field accuracies
+                    if item.get('field_accuracies'):
+                        for field_pair, accuracy in item['field_accuracies'].items():
+                            record[f'Accuracy_{field_pair}'] = round(accuracy, 2)
+                    
+                    export_records.append(record)
+                
+                df_export = pd.DataFrame(export_records)
+                df_export.to_excel(output, index=False, sheet_name='Data Cocok')
+                filename = f"data_cocok_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+            else:
+                return jsonify({'error': 'No matched data to export'}), 400
+                
+        elif export_type == 'unmatched':
+            # For unmatched data, export both File 1 and File 2 data in separate sheets
+            unmatched_data = results['unmatched_data']
+            if unmatched_data:
+                with pd.ExcelWriter(output, engine='openpyxl') as writer:
+                    # Export File 1 unmatched data
+                    file1_records = []
+                    file2_records = []
+                    
+                    for item in unmatched_data:
+                        if item.get('file1_data'):
+                            record1 = item['file1_data'].copy()
+                            record1['Overall_Accuracy'] = round(item.get('overall_accuracy', 0), 2)
+                            file1_records.append(record1)
+                        
+                        if item.get('file2_data'):
+                            record2 = item['file2_data'].copy()
+                            record2['Overall_Accuracy'] = round(item.get('overall_accuracy', 0), 2)
+                            file2_records.append(record2)
+                    
+                    if file1_records:
+                        df1_export = pd.DataFrame(file1_records)
+                        df1_export.to_excel(writer, index=False, sheet_name='File 1 - Tidak Cocok')
+                    
+                    if file2_records:
+                        df2_export = pd.DataFrame(file2_records)
+                        df2_export.to_excel(writer, index=False, sheet_name='File 2 - Tidak Cocok')
+                
+                filename = f"data_tidak_cocok_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+            else:
+                return jsonify({'error': 'No unmatched data to export'}), 400
+        else:
+            return jsonify({'error': 'Invalid export type'}), 400
+        
+        output.seek(0)
+        
+        return send_file(
+            output,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            as_attachment=True,
+            download_name=filename
+        )
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
