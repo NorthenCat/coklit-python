@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Matching - Pencocokan Data Kependudukan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#1F2937',
+                        accent: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom range slider styling */
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #3B82F6;
+            border: 2px solid #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #3B82F6;
+            border: 2px solid #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        input[type="range"]::-webkit-slider-track {
+            background: linear-gradient(to right, #3B82F6 var(--value, 50%), #E5E7EB var(--value, 50%));
+            height: 8px;
+            border-radius: 4px;
+        }
+        
+        input[type="range"]::-moz-range-track {
+            background: #E5E7EB;
+            height: 8px;
+            border-radius: 4px;
+        }
+        
+        .step-indicator.active .w-8 {
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .result-tab.active {
+            border-bottom-color: #3B82F6 !important;
+            color: #3B82F6 !important;
+        }
+        
+        .file-upload-area:hover .border-gray-300 {
+            border-color: #3B82F6;
+            background-color: #F8FAFC;
+        }
+        
+        /* Table styling improvements */
+        .sticky-column {
+            position: sticky;
+            left: 0;
+            z-index: 10;
+        }
+        
+        .bg-blue-25 {
+            background-color: #f0f9ff;
+        }
+        
+        .bg-green-25 {
+            background-color: #f0fdf4;
+        }
+        
+        /* Improved table borders */
+        .table-fixed {
+            table-layout: fixed;
+        }
+        
+        .table-fixed th,
+        .table-fixed td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Hover effects for table rows */
+        tbody tr:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Better text truncation with tooltip */
+        .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* Custom scrollbar for table */
+        .overflow-x-auto::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .overflow-x-auto::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        
+        .overflow-x-auto::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+  </head>
+  <body class="bg-gray-50 font-sans">
+    <div class="min-h-screen">
+      <!-- Header -->
+      <header
+        class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">
+              <i class="fas fa-users mr-3"></i>
+              Data Matching - Pencocokan Data Kependudukan
+            </h1>
+            <p class="text-blue-100 text-lg">Upload dua file Excel untuk
+              mencocokkan data dengan tingkat akurasi tinggi</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Progress Steps -->
+        <div class="mb-8">
+          <div class="flex items-center justify-center space-x-4">
+            <div id="step-1"
+              class="flex items-center space-x-2 step-indicator active">
+              <div
+                class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">1</div>
+              <span class="text-gray-700 font-medium">Upload File</span>
+            </div>
+            <div class="w-16 h-1 bg-gray-300 step-connector"></div>
+            <div id="step-2" class="flex items-center space-x-2 step-indicator">
+              <div
+                class="w-8 h-8 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center text-sm font-bold">2</div>
+              <span class="text-gray-500 font-medium">Pilih Field</span>
+            </div>
+            <div class="w-16 h-1 bg-gray-300 step-connector"></div>
+            <div id="step-3" class="flex items-center space-x-2 step-indicator">
+              <div
+                class="w-8 h-8 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center text-sm font-bold">3</div>
+              <span class="text-gray-500 font-medium">Hasil</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1: File Upload -->
+        <div id="upload-section" class="section-container">
+          <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-upload text-blue-600 mr-3"></i>
+                Step 1: Upload File Excel
+              </h2>
+              <p class="text-gray-600">Pilih dua file Excel atau CSV yang ingin
+                dibandingkan</p>
+            </div>
+
+            <form id="upload-form" enctype="multipart/form-data"
+              class="space-y-6">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="file-upload-area">
+                  <label
+                    class="block text-sm font-semibold text-gray-700 mb-2">File
+                    1 (Excel/CSV)</label>
+                  <div class="relative">
+                    <input type="file" id="file1" name="file1"
+                      accept=".xlsx,.xls,.csv" required
+                      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                    <div
+                      class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                      <i
+                        class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                      <p class="text-gray-600">Klik untuk upload file</p>
+                      <p class="text-sm text-gray-500 mt-1">Format: .xlsx, .xls,
+                        atau .csv</p>
+                      <span id="file1-name"
+                        class="text-sm text-blue-600 font-medium"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="file-upload-area">
+                  <label
+                    class="block text-sm font-semibold text-gray-700 mb-2">File
+                    2 (Excel/CSV)</label>
+                  <div class="relative">
+                    <input type="file" id="file2" name="file2"
+                      accept=".xlsx,.xls,.csv" required
+                      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                    <div
+                      class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                      <i
+                        class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                      <p class="text-gray-600">Klik untuk upload file</p>
+                      <p class="text-sm text-gray-500 mt-1">Format: .xlsx, .xls,
+                        atau .csv</p>
+                      <span id="file2-name"
+                        class="text-sm text-blue-600 font-medium"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit"
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
+                  <i class="fas fa-upload mr-2"></i>
+                  Upload File
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Step 2: Field Selection -->
+        <div id="field-selection-section" class="section-container hidden">
+          <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-cogs text-green-600 mr-3"></i>
+                Step 2: Mapping Field untuk Pencocokan
+              </h2>
+              <p class="text-gray-600">Pilih kolom dari setiap file yang ingin
+                dibandingkan</p>
+            </div>
+
+            <!-- Preview Data -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Preview
+                  File 1</h3>
+                <div id="preview1"
+                  class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-auto"></div>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Preview
+                  File 2</h3>
+                <div id="preview2"
+                  class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-auto"></div>
+              </div>
+            </div>
+
+            <!-- Field Mapping -->
+            <div class="bg-gray-50 rounded-lg p-6 mb-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">Field
+                  Mapping</h3>
+                <button id="add-mapping"
+                  class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors inline-flex items-center text-sm">
+                  <i class="fas fa-plus mr-2"></i>
+                  Tambah Mapping
+                </button>
+              </div>
+
+              <div id="field-mappings" class="space-y-4">
+                <!-- Field mapping rows will be added here -->
+              </div>
+            </div>
+
+            <!-- Similarity Threshold -->
+            <div class="bg-blue-50 rounded-lg p-6 mb-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-4">Pengaturan
+                Akurasi</h3>
+              <div class="flex items-center space-x-4">
+                <label class="text-sm font-medium text-gray-700">Minimum
+                  Akurasi:</label>
+                <input type="range" id="similarity-threshold" min="0" max="100"
+                  value="50"
+                  class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                <span id="threshold-value"
+                  class="text-lg font-bold text-blue-600 min-w-[50px]">50%</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-2">Data dengan akurasi di bawah
+                nilai ini akan masuk ke kategori "tidak cocok"</p>
+            </div>
+
+            <div class="text-center">
+              <button id="process-matching"
+                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
+                <i class="fas fa-search mr-2"></i>
+                Mulai Pencocokan Data
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Results -->
+        <div id="results-section" class="section-container hidden">
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+            <div class="p-8 border-b border-gray-200">
+              <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-chart-line text-purple-600 mr-3"></i>
+                Hasil Pencocokan Data
+              </h2>
+              <p class="text-gray-600">Analisis dan perbandingan data berhasil
+                diselesaikan</p>
+            </div>
+
+            <!-- Summary Statistics -->
+            <div class="p-8 border-b border-gray-200">
+              <div id="summary-stats"
+                class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Summary cards will be loaded here -->
+              </div>
+            </div>
+
+            <!-- Results Tabs -->
+            <div class="p-8">
+              <div class="border-b border-gray-200 mb-6">
+                <nav class="flex space-x-8">
+                  <button id="matched-tab"
+                    class="result-tab active py-2 px-1 border-b-2 font-medium text-sm">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    Data yang Cocok
+                  </button>
+                  <button id="unmatched-tab"
+                    class="result-tab py-2 px-1 border-b-2 font-medium text-sm">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    Data Tidak Cocok
+                  </button>
+                </nav>
+              </div>
+
+              <div id="matched-results" class="result-content">
+                <!-- Matched data table will be loaded here -->
+              </div>
+
+              <div id="unmatched-results" class="result-content hidden">
+                <!-- Unmatched data table will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reset Button -->
+        <div class="text-center mt-8">
+          <button id="reset-btn"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors inline-flex items-center hidden">
+            <i class="fas fa-redo mr-2"></i>
+            Reset & Upload Ulang
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-lg p-8 max-w-sm mx-4 text-center">
+        <div
+          class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p class="text-gray-700 font-medium">Memproses data...</p>
+        <p class="text-gray-500 text-sm mt-2">Mohon tunggu sebentar</p>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        let sessionData = null;
+        let mappingCount = 0;
+
+        $(document).ready(function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // File upload handlers
+            $('#file1, #file2').on('change', function() {
+                const fileName = this.files[0]?.name;
+                if (fileName) {
+                    $(`#${this.id}-name`).text(`File dipilih: ${fileName}`);
+                    $(this).siblings('div').removeClass('border-gray-300').addClass('border-green-400');
+                }
+            });
+
+            // Threshold slider
+            $('#similarity-threshold').on('input', function() {
+                $('#threshold-value').text($(this).val() + '%');
+            });
+
+            // Form upload
+            $('#upload-form').on('submit', handleFileUpload);
+            
+            // Add mapping button
+            $('#add-mapping').on('click', addFieldMapping);
+            
+            // Process matching
+            $('#process-matching').on('click', processMatching);
+            
+            // Reset button
+            $('#reset-btn').on('click', () => location.reload());
+
+            // Result tabs
+            $('.result-tab').on('click', function() {
+                $('.result-tab').removeClass('active border-blue-500 text-blue-600').addClass('border-transparent text-gray-500');
+                $('.result-content').addClass('hidden');
+                
+                $(this).addClass('active border-blue-500 text-blue-600').removeClass('border-transparent text-gray-500');
+                
+                if ($(this).attr('id') === 'matched-tab') {
+                    $('#matched-results').removeClass('hidden');
+                } else {
+                    $('#unmatched-results').removeClass('hidden');
+                }
+            });
+        }
+
+        function handleFileUpload(e) {
+            e.preventDefault();
+            
+            console.log('DEBUG: handleFileUpload called');
+            
+            const formData = new FormData(this);
+            console.log('DEBUG: FormData created');
+            
+            // Log form data contents
+            for (let pair of formData.entries()) {
+                console.log('DEBUG: FormData entry:', pair[0], pair[1]);
+            }
+            
+            showLoading(true);
+            
+            $.ajax({
+                url: '/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                timeout: 60000, // 60 second timeout
+                beforeSend: function() {
+                    console.log('DEBUG: AJAX request starting...');
+                },
+                success: function(data, textStatus, xhr) {
+                    console.log('DEBUG: Upload successful!', data);
+                    console.log('DEBUG: Response status:', xhr.status);
+                    sessionData = data;
+                    showFieldSelection(data);
+                    showLoading(false);
+                    updateStepIndicator(2);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error('DEBUG: Upload error!');
+                    console.error('DEBUG: Status:', xhr.status);
+                    console.error('DEBUG: Status Text:', textStatus);
+                    console.error('DEBUG: Error Thrown:', errorThrown);
+                    console.error('DEBUG: Response Text:', xhr.responseText);
+                    
+                    let errorMessage = 'Error uploading files';
+                    
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error;
+                    } else if (xhr.responseText) {
+                        try {
+                            const response = JSON.parse(xhr.responseText);
+                            errorMessage = response.error || errorMessage;
+                        } catch (e) {
+                            errorMessage = `Server error (${xhr.status}): ${textStatus}`;
+                        }
+                    } else if (textStatus === 'timeout') {
+                        errorMessage = 'Upload timeout. Please try with smaller files.';
+                    } else if (textStatus === 'error') {
+                        errorMessage = `Network error (${xhr.status}). Please check your connection.`;
+                    }
+                    
+                    showError(errorMessage);
+                    showLoading(false);
+                },
+                complete: function() {
+                    console.log('DEBUG: AJAX request completed');
+                }
+            });
+        }
+
+        function showFieldSelection(data) {
+            $('#upload-section').addClass('hidden');
+            $('#field-selection-section').removeClass('hidden');
+
+            // Show preview data
+            displayPreview('#preview1', data.sample_data1, 'File 1');
+            displayPreview('#preview2', data.sample_data2, 'File 2');
+
+            // Initialize field mappings
+            $('#field-mappings').empty();
+            mappingCount = 0;
+            
+            // Add initial mapping if common fields exist
+            if (data.common_columns && data.common_columns.length > 0) {
+                data.common_columns.slice(0, 2).forEach(field => {
+                    addFieldMapping(null, field, field);
+                });
+            } else {
+                addFieldMapping();
+            }
+        }
+
+        function addFieldMapping(event, file1Field = '', file2Field = '') {
+            if (event) event.preventDefault();
+            
+            mappingCount++;
+            const mappingHtml = `
+                <div class="field-mapping-row bg-white border border-gray-200 rounded-lg p-4" data-mapping-id="${mappingCount}">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Field File 1</label>
+                            <select class="field1-select w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">Pilih kolom...</option>
+                            </select>
+                        </div>
+                        <div class="text-center text-gray-400 text-xl">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Field File 2</label>
+                            <select class="field2-select w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">Pilih kolom...</option>
+                            </select>
+                        </div>
+                        <div class="text-center">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                <i class="fas fa-link mr-1"></i>
+                                Mapping ${mappingCount}
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="remove-mapping text-red-600 hover:text-red-800 p-2">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            $('#field-mappings').append(mappingHtml);
+            
+            // Populate dropdowns
+            const newRow = $(`.field-mapping-row[data-mapping-id="${mappingCount}"]`);
+            populateFieldDropdown(newRow.find('.field1-select'), sessionData.columns1, file1Field);
+            populateFieldDropdown(newRow.find('.field2-select'), sessionData.columns2, file2Field);
+            
+            // Remove button handler
+            newRow.find('.remove-mapping').on('click', function() {
+                newRow.remove();
+            });
+        }
+
+        function populateFieldDropdown(dropdown, columns, selectedValue = '') {
+            dropdown.empty().append('<option value="">Pilih kolom...</option>');
+            columns.forEach(col => {
+                const selected = col === selectedValue ? 'selected' : '';
+                dropdown.append(`<option value="${col}" ${selected}>${col}</option>`);
+            });
+        }
+
+        function processMatching() {
+            const fieldMappings = [];
+            
+            $('.field-mapping-row').each(function() {
+                const field1 = $(this).find('.field1-select').val();
+                const field2 = $(this).find('.field2-select').val();
+                
+                if (field1 && field2) {
+                    fieldMappings.push({ field1, field2 });
+                }
+            });
+
+            if (fieldMappings.length === 0) {
+                showError('Pilih minimal satu mapping field untuk dicocokkan!');
+                return;
+            }
+
+            const requestData = {
+                filepath1: sessionData.filepath1,
+                filepath2: sessionData.filepath2,
+                field_mappings: fieldMappings,
+                similarity_threshold: parseInt($('#similarity-threshold').val())
+            };
+
+            showLoading(true);
+
+            $.ajax({
+                url: '/process_matching',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(requestData),
+                success: function(data) {
+                    showResults(data, fieldMappings);
+                    showLoading(false);
+                    updateStepIndicator(3);
+                },
+                error: function(xhr) {
+                    const error = xhr.responseJSON?.error || 'Error processing matching';
+                    showError(error);
+                    showLoading(false);
+                }
+            });
+        }
+
+        function displayPreview(selector, data, title) {
+            if (!data || data.length === 0) {
+                $(selector).html(`<p class="text-gray-500 text-center py-4">No data to preview</p>`);
+                return;
+            }
+
+            const columns = Object.keys(data[0]);
+            let tableHtml = `
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-xs">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                ${columns.map(col => `<th class="px-3 py-2 text-left font-medium text-gray-700">${col}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            ${data.slice(0, 3).map(row => `
+                                <tr>
+                                    ${columns.map(col => `<td class="px-3 py-2 text-gray-900">${row[col] || ''}</td>`).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            $(selector).html(tableHtml);
+        }
+
+        function showResults(data, fieldMappings) {
+            $('#field-selection-section').addClass('hidden');
+            $('#results-section').removeClass('hidden');
+            $('#reset-btn').removeClass('hidden');
+
+            // Display summary statistics
+            const summary = data.summary;
+            $('#summary-stats').html(`
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-blue-600">${summary.total_file1}</div>
+                    <div class="text-sm text-blue-800 font-medium">Total File 1</div>
+                </div>
+                <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-indigo-600">${summary.total_file2}</div>
+                    <div class="text-sm text-indigo-800 font-medium">Total File 2</div>
+                </div>
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-green-600">${summary.matched_count}</div>
+                    <div class="text-sm text-green-800 font-medium">Data Cocok</div>
+                </div>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-yellow-600">${summary.unmatched_count}</div>
+                    <div class="text-sm text-yellow-800 font-medium">Data Tidak Cocok</div>
+                </div>
+            `);
+
+            // Display data tables
+            displayResultsTable('#matched-results', data.matched_data, fieldMappings, true);
+            displayResultsTable('#unmatched-results', data.unmatched_data, fieldMappings, false);
+
+            // Update tab labels
+            $('#matched-tab').html(`<i class="fas fa-check-circle mr-2"></i>Data yang Cocok (${summary.matched_count})`);
+            $('#unmatched-tab').html(`<i class="fas fa-exclamation-triangle mr-2"></i>Data Tidak Cocok (${summary.unmatched_count})`);
+        }
+
+        function displayResultsTable(selector, data, fieldMappings, isMatched) {
+            if (!data || data.length === 0) {
+                $(selector).html('<p class="text-gray-500 text-center py-8">Tidak ada data untuk ditampilkan</p>');
+                return;
+            }
+
+            // Get fields only from the mappings for better organization
+            const displayFields = fieldMappings.map(mapping => ({
+                field1: mapping.field1,
+                field2: mapping.field2,
+                label: `${mapping.field1} ↔ ${mapping.field2}`
+            }));
+
+            let tableHtml = `
+                <div class="overflow-x-auto rounded-lg border-2 border-gray-300 shadow-lg">
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed">
+                        <thead class="bg-gradient-to-r from-gray-100 to-gray-200">
+                            <tr>
+                                <th rowspan="2" class="w-32 px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider border-r-2 border-gray-400 sticky-column bg-gray-100">
+                                    <div class="flex flex-col">
+                                        <span>Overall</span>
+                                        <span>Accuracy</span>
+                                    </div>
+                                </th>
+                                ${displayFields.map((mapping, index) => `
+                                    <th colspan="2" class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider ${index === 0 ? 'border-l-2' : 'border-l'} border-gray-400">
+                                        ${mapping.field1} ↔ ${mapping.field2}
+                                    </th>
+                                `).join('')}
+                                <th rowspan="2" class="w-24 px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider border-l-2 border-gray-400">
+                                    Field Accuracy
+                                </th>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                ${displayFields.map((mapping, index) => `
+                                    <th class="px-3 py-2 text-xs font-semibold text-blue-700 text-center ${index === 0 ? 'border-l-2' : 'border-l'} border-gray-400 bg-blue-50">File 1</th>
+                                    <th class="px-3 py-2 text-xs font-semibold text-green-700 text-center border-l border-gray-300 bg-green-50">File 2</th>
+                                `).join('')}
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+            `;
+
+            data.forEach((item, index) => {
+                const accuracyClass = item.overall_accuracy >= 80 ? 'bg-green-100 text-green-800 border-green-300' : 
+                                    item.overall_accuracy >= 60 ? 'bg-yellow-100 text-yellow-800 border-yellow-300' : 'bg-red-100 text-red-800 border-red-300';
+                
+                tableHtml += `
+                    <tr class="${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 transition-colors duration-200">
+                        <td class="px-4 py-4 text-center whitespace-nowrap border-r-2 border-gray-400 sticky-column bg-inherit">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold border ${accuracyClass}">
+                                ${item.overall_accuracy.toFixed(1)}%
+                            </span>
+                        </td>
+                `;
+                
+                displayFields.forEach((mapping, index) => {
+                    // Get values with proper fallback
+                    const value1 = item.file1_data?.[mapping.field1];
+                    const value2 = item.file2_data?.[mapping.field2];
+                    
+                    const displayValue1 = value1 !== undefined && value1 !== null && value1 !== '' ? 
+                        String(value1).trim() : '<span class="text-gray-400 italic">Kosong</span>';
+                    const displayValue2 = value2 !== undefined && value2 !== null && value2 !== '' ? 
+                        String(value2).trim() : '<span class="text-gray-400 italic">Kosong</span>';
+                    
+                    tableHtml += `
+                        <td class="px-3 py-4 text-sm text-gray-900 whitespace-nowrap ${index === 0 ? 'border-l-2' : 'border-l'} border-gray-400 bg-blue-25">
+                            <div class="max-w-40 truncate" title="${String(value1 || '').replace(/"/g, '&quot;')}">${displayValue1}</div>
+                        </td>
+                        <td class="px-3 py-4 text-sm text-gray-900 whitespace-nowrap border-l border-gray-300 bg-green-25">
+                            <div class="max-w-40 truncate" title="${String(value2 || '').replace(/"/g, '&quot;')}">${displayValue2}</div>
+                        </td>
+                    `;
+                });
+                
+                // Calculate average field accuracy for this row
+                let totalAccuracy = 0;
+                let accuracyCount = 0;
+                
+                displayFields.forEach(mapping => {
+                    const mappingKey = `${mapping.field1}_${mapping.field2}`;
+                    const fieldAccuracy = item.field_accuracies?.[mappingKey] || 0;
+                    totalAccuracy += fieldAccuracy;
+                    accuracyCount++;
+                });
+                
+                const avgAccuracy = accuracyCount > 0 ? (totalAccuracy / accuracyCount) : 0;
+                const fieldAccuracyClass = avgAccuracy >= 80 ? 'text-green-600 bg-green-50' : 
+                                         avgAccuracy >= 60 ? 'text-yellow-600 bg-yellow-50' : 'text-red-600 bg-red-50';
+                
+                tableHtml += `
+                        <td class="px-4 py-4 text-sm font-bold text-center whitespace-nowrap border-l-2 border-gray-400 ${fieldAccuracyClass}">
+                            ${avgAccuracy.toFixed(1)}%
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += `
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 text-xs text-gray-500 flex items-center space-x-4">
+                    <div class="flex items-center"><div class="w-3 h-3 bg-blue-25 border border-blue-200 mr-1"></div>Data File 1</div>
+                    <div class="flex items-center"><div class="w-3 h-3 bg-green-25 border border-green-200 mr-1"></div>Data File 2</div>
+                    <div class="text-gray-600">• Hover pada data untuk melihat nilai lengkap</div>
+                </div>
+            `;
+            
+            $(selector).html(tableHtml);
+        }
+
+        function updateStepIndicator(activeStep) {
+            for (let i = 1; i <= 3; i++) {
+                const stepElement = $(`#step-${i}`);
+                const circle = stepElement.find('div').first();
+                const text = stepElement.find('span');
+                
+                if (i <= activeStep) {
+                    circle.removeClass('bg-gray-300 text-gray-500').addClass('bg-blue-600 text-white');
+                    text.removeClass('text-gray-500').addClass('text-gray-700');
+                    stepElement.addClass('active');
+                } else {
+                    circle.removeClass('bg-blue-600 text-white').addClass('bg-gray-300 text-gray-500');
+                    text.removeClass('text-gray-700').addClass('text-gray-500');
+                    stepElement.removeClass('active');
+                }
+            }
+        }
+
+        function showLoading(show) {
+            if (show) {
+                $('#loading').removeClass('hidden');
+            } else {
+                $('#loading').addClass('hidden');
+            }
+        }
+
+        function showError(message) {
+            console.error('ERROR:', message);
+            
+            // Create a better error notification instead of alert
+            const errorDiv = $('<div>')
+                .addClass('fixed top-4 right-4 bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg z-50')
+                .html(`
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-circle mr-3"></i>
+                        <span>${message}</span>
+                        <button class="ml-4 text-white hover:text-gray-200" onclick="$(this).parent().parent().fadeOut()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `);
+            
+            $('body').append(errorDiv);
+            
+            // Auto remove after 10 seconds
+            setTimeout(() => {
+                errorDiv.fadeOut(() => errorDiv.remove());
+            }, 10000);
+        }
+    </script>
+  </body>
+</html>
