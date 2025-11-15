@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Matching - Pencocokan Data Kependudukan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet">
-    <script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Data Matching - Pencocokan Data Kependudukan</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet">
+        <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -23,7 +23,7 @@
             }
         }
     </script>
-    <style>
+        <style>
         /* Custom range slider styling */
         input[type="range"]::-webkit-slider-thumb {
             appearance: none;
@@ -234,295 +234,352 @@
         .sort-icon.active {
             color: #3B82F6;
         }
+        
+        /* Custom toggle switch for priority field */
+        .priority-checkbox:checked + div .dot {
+            transform: translateX(100%);
+            background-color: #fff;
+        }
+        
+        .priority-checkbox:checked + div {
+            background-color: #3B82F6;
+        }
+        
+        .priority-checkbox:focus + div {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .dot {
+            top: 2px;
+            left: 2px;
+        }
     </style>
-  </head>
-  <body class="bg-gray-50 font-sans">
-    <div class="min-h-screen">
-      <!-- Header -->
-      <header
-        class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center">
-            <h1 class="text-3xl md:text-4xl font-bold mb-2">
-              <i class="fas fa-users mr-3"></i>
-              Data Matching - Pencocokan Data Kependudukan
-            </h1>
-            <p class="text-blue-100 text-lg">Upload dua file Excel untuk
-              mencocokkan data dengan tingkat akurasi tinggi</p>
-          </div>
-        </div>
-      </header>
-
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Progress Steps -->
-        <div class="mb-8">
-          <div class="flex items-center justify-center space-x-4">
-            <div id="step-1"
-              class="flex items-center space-x-2 step-indicator active">
-              <div
-                class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">1</div>
-              <span class="text-gray-700 font-medium">Upload File</span>
-            </div>
-            <div class="w-16 h-1 bg-gray-300 step-connector"></div>
-            <div id="step-2" class="flex items-center space-x-2 step-indicator">
-              <div
-                class="w-8 h-8 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center text-sm font-bold">2</div>
-              <span class="text-gray-500 font-medium">Pilih Field</span>
-            </div>
-            <div class="w-16 h-1 bg-gray-300 step-connector"></div>
-            <div id="step-3" class="flex items-center space-x-2 step-indicator">
-              <div
-                class="w-8 h-8 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center text-sm font-bold">3</div>
-              <span class="text-gray-500 font-medium">Hasil</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 1: File Upload -->
-        <div id="upload-section" class="section-container">
-          <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-            <div class="mb-6">
-              <h2 class="text-2xl font-bold text-gray-800 mb-2">
-                <i class="fas fa-upload text-blue-600 mr-3"></i>
-                Step 1: Upload File Excel
-              </h2>
-              <p class="text-gray-600">Pilih dua file Excel atau CSV yang ingin
-                dibandingkan</p>
-            </div>
-
-            <form id="upload-form" enctype="multipart/form-data"
-              class="space-y-6">
-              <div class="grid md:grid-cols-2 gap-6">
-                <div class="file-upload-area">
-                  <label
-                    class="block text-sm font-semibold text-gray-700 mb-2">File
-                    1 (Excel/CSV)</label>
-                  <div class="relative">
-                    <input type="file" id="file1" name="file1"
-                      accept=".xlsx,.xls,.csv" required
-                      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                    <div
-                      class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
-                      <i
-                        class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-                      <p class="text-gray-600">Klik untuk upload file</p>
-                      <p class="text-sm text-gray-500 mt-1">Format: .xlsx, .xls,
-                        atau .csv</p>
-                      <span id="file1-name"
-                        class="text-sm text-blue-600 font-medium"></span>
+    </head>
+    <body class="bg-gray-50 font-sans">
+        <div class="min-h-screen">
+            <!-- Header -->
+            <header
+                class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 shadow-lg">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h1 class="text-3xl md:text-4xl font-bold mb-2">
+                            <i class="fas fa-users mr-3"></i>
+                            Data Matching - Pencocokan Data Kependudukan
+                        </h1>
+                        <p class="text-blue-100 text-lg">Upload dua file Excel
+                            untuk
+                            mencocokkan data dengan tingkat akurasi tinggi</p>
                     </div>
-                  </div>
                 </div>
+            </header>
 
-                <div class="file-upload-area">
-                  <label
-                    class="block text-sm font-semibold text-gray-700 mb-2">File
-                    2 (Excel/CSV)</label>
-                  <div class="relative">
-                    <input type="file" id="file2" name="file2"
-                      accept=".xlsx,.xls,.csv" required
-                      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                    <div
-                      class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
-                      <i
-                        class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-                      <p class="text-gray-600">Klik untuk upload file</p>
-                      <p class="text-sm text-gray-500 mt-1">Format: .xlsx, .xls,
-                        atau .csv</p>
-                      <span id="file2-name"
-                        class="text-sm text-blue-600 font-medium"></span>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Progress Steps -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-center space-x-4">
+                        <div id="step-1"
+                            class="flex items-center space-x-2 step-indicator active">
+                            <div
+                                class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">1</div>
+                            <span class="text-gray-700 font-medium">Upload
+                                File</span>
+                        </div>
+                        <div class="w-16 h-1 bg-gray-300 step-connector"></div>
+                        <div id="step-2"
+                            class="flex items-center space-x-2 step-indicator">
+                            <div
+                                class="w-8 h-8 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center text-sm font-bold">2</div>
+                            <span class="text-gray-500 font-medium">Pilih
+                                Field</span>
+                        </div>
+                        <div class="w-16 h-1 bg-gray-300 step-connector"></div>
+                        <div id="step-3"
+                            class="flex items-center space-x-2 step-indicator">
+                            <div
+                                class="w-8 h-8 rounded-full bg-gray-300 text-gray-500 flex items-center justify-center text-sm font-bold">3</div>
+                            <span class="text-gray-500 font-medium">Hasil</span>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
 
-              <div class="text-center">
-                <button type="submit"
-                  class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
-                  <i class="fas fa-upload mr-2"></i>
-                  Upload File
-                </button>
-              </div>
-            </form>
-          </div>
+                <!-- Step 1: File Upload -->
+                <div id="upload-section" class="section-container">
+                    <div
+                        class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                                <i class="fas fa-upload text-blue-600 mr-3"></i>
+                                Step 1: Upload File Excel
+                            </h2>
+                            <p class="text-gray-600">Pilih dua file Excel atau
+                                CSV yang ingin
+                                dibandingkan</p>
+                        </div>
+
+                        <form id="upload-form" enctype="multipart/form-data"
+                            class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="file-upload-area">
+                                    <label
+                                        class="block text-sm font-semibold text-gray-700 mb-2">File
+                                        1 (Excel/CSV)</label>
+                                    <div class="relative">
+                                        <input type="file" id="file1"
+                                            name="file1"
+                                            accept=".xlsx,.xls,.csv" required
+                                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        <div
+                                            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                                            <i
+                                                class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-gray-600">Klik untuk
+                                                upload file</p>
+                                            <p
+                                                class="text-sm text-gray-500 mt-1">Format:
+                                                .xlsx, .xls,
+                                                atau .csv</p>
+                                            <span id="file1-name"
+                                                class="text-sm text-blue-600 font-medium"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="file-upload-area">
+                                    <label
+                                        class="block text-sm font-semibold text-gray-700 mb-2">File
+                                        2 (Excel/CSV)</label>
+                                    <div class="relative">
+                                        <input type="file" id="file2"
+                                            name="file2"
+                                            accept=".xlsx,.xls,.csv" required
+                                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        <div
+                                            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                                            <i
+                                                class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-gray-600">Klik untuk
+                                                upload file</p>
+                                            <p
+                                                class="text-sm text-gray-500 mt-1">Format:
+                                                .xlsx, .xls,
+                                                atau .csv</p>
+                                            <span id="file2-name"
+                                                class="text-sm text-blue-600 font-medium"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
+                                    <i class="fas fa-upload mr-2"></i>
+                                    Upload File
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Step 2: Field Selection -->
+                <div id="field-selection-section"
+                    class="section-container hidden">
+                    <div
+                        class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                                <i class="fas fa-cogs text-green-600 mr-3"></i>
+                                Step 2: Mapping Field untuk Pencocokan
+                            </h2>
+                            <p class="text-gray-600">Pilih kolom dari setiap
+                                file yang ingin
+                                dibandingkan</p>
+                        </div>
+
+                        <!-- Preview Data -->
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div>
+                                <h3
+                                    class="text-lg font-semibold text-gray-800 mb-3">Preview
+                                    File 1</h3>
+                                <div id="preview1"
+                                    class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-auto"></div>
+                            </div>
+                            <div>
+                                <h3
+                                    class="text-lg font-semibold text-gray-800 mb-3">Preview
+                                    File 2</h3>
+                                <div id="preview2"
+                                    class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-auto"></div>
+                            </div>
+                        </div>
+
+                        <!-- Field Mapping -->
+                        <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3
+                                    class="text-lg font-semibold text-gray-800">Field
+                                    Mapping</h3>
+                                <button id="add-mapping"
+                                    class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors inline-flex items-center text-sm">
+                                    <i class="fas fa-plus mr-2"></i>
+                                    Tambah Mapping
+                                </button>
+                            </div>
+
+                            <div id="field-mappings" class="space-y-4">
+                                <!-- Field mapping rows will be added here -->
+                            </div>
+                        </div>
+
+                        <!-- Similarity Threshold -->
+                        <div class="bg-blue-50 rounded-lg p-6 mb-6">
+                            <h3
+                                class="text-lg font-semibold text-gray-800 mb-4">Pengaturan
+                                Akurasi Global</h3>
+                            <div class="flex items-center space-x-4">
+                                <label
+                                    class="text-sm font-medium text-gray-700">Overall
+                                    Minimum
+                                    Akurasi:</label>
+                                <input type="range" id="similarity-threshold"
+                                    min="0" max="100"
+                                    value="50"
+                                    class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex items-center space-x-2">
+                                    <input type="number" id="threshold-input"
+                                        min="0" max="100"
+                                        value="50"
+                                        class="w-16 px-2 py-1 text-center border border-gray-300 rounded text-sm focus:ring-blue-500 focus:border-blue-500">
+                                    <span class="text-sm text-gray-600">%</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">
+                                <i
+                                    class="fas fa-info-circle text-blue-500 mr-1"></i>
+                                Data harus memenuhi akurasi minimum <strong>per
+                                    field</strong> DAN akurasi
+                                <strong>keseluruhan</strong> untuk dianggap
+                                cocok
+                            </p>
+                        </div>
+
+                        <div class="text-center">
+                            <button id="process-matching"
+                                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
+                                <i class="fas fa-search mr-2"></i>
+                                Mulai Pencocokan Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Results -->
+                <div id="results-section" class="section-container hidden">
+                    <div
+                        class="bg-white rounded-xl shadow-lg border border-gray-200">
+                        <div class="p-8 border-b border-gray-200">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                                <i
+                                    class="fas fa-chart-line text-purple-600 mr-3"></i>
+                                Hasil Pencocokan Data
+                            </h2>
+                            <p class="text-gray-600">Analisis dan perbandingan
+                                data berhasil
+                                diselesaikan</p>
+                        </div>
+
+                        <!-- Summary Statistics -->
+                        <div class="p-8 border-b border-gray-200">
+                            <div id="summary-stats"
+                                class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <!-- Summary cards will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Results Tabs -->
+                        <div class="p-8">
+                            <div class="border-b border-gray-200 mb-6">
+                                <div class="flex justify-between items-center">
+                                    <nav class="flex space-x-8">
+                                        <button id="matched-tab"
+                                            class="result-tab active py-2 px-1 border-b-2 font-medium text-sm">
+                                            <i
+                                                class="fas fa-check-circle mr-2"></i>
+                                            Data yang Cocok
+                                        </button>
+                                        <button id="unmatched-tab"
+                                            class="result-tab py-2 px-1 border-b-2 font-medium text-sm">
+                                            <i
+                                                class="fas fa-exclamation-triangle mr-2"></i>
+                                            Data Tidak Cocok
+                                        </button>
+                                    </nav>
+
+                                    <div class="flex space-x-3">
+                                        <button id="export-matched"
+                                            class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors inline-flex items-center text-sm">
+                                            <i
+                                                class="fas fa-file-excel mr-2"></i>
+                                            Export Data Cocok
+                                        </button>
+                                        <button id="export-unmatched"
+                                            class="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition-colors inline-flex items-center text-sm">
+                                            <i
+                                                class="fas fa-file-excel mr-2"></i>
+                                            Export Data Tidak Cocok
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Search Box -->
+                            <div class="search-container">
+                                <div class="relative">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" id="table-search"
+                                        placeholder="Cari data..."
+                                        class="search-input w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                            </div>
+
+                            <div id="matched-results" class="result-content">
+                                <!-- Matched data table will be loaded here -->
+                            </div>
+
+                            <div id="unmatched-results"
+                                class="result-content hidden">
+                                <!-- Unmatched data table will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reset Button -->
+                <div class="text-center mt-8">
+                    <button id="reset-btn"
+                        class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors inline-flex items-center hidden">
+                        <i class="fas fa-redo mr-2"></i>
+                        Reset & Upload Ulang
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- Step 2: Field Selection -->
-        <div id="field-selection-section" class="section-container hidden">
-          <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-            <div class="mb-6">
-              <h2 class="text-2xl font-bold text-gray-800 mb-2">
-                <i class="fas fa-cogs text-green-600 mr-3"></i>
-                Step 2: Mapping Field untuk Pencocokan
-              </h2>
-              <p class="text-gray-600">Pilih kolom dari setiap file yang ingin
-                dibandingkan</p>
+        <!-- Loading Overlay -->
+        <div id="loading"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg p-8 max-w-sm mx-4 text-center">
+                <div
+                    class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p class="text-gray-700 font-medium">Memproses data...</p>
+                <p class="text-gray-500 text-sm mt-2">Mohon tunggu sebentar</p>
             </div>
-
-            <!-- Preview Data -->
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
-              <div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-3">Preview
-                  File 1</h3>
-                <div id="preview1"
-                  class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-auto"></div>
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-3">Preview
-                  File 2</h3>
-                <div id="preview2"
-                  class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-auto"></div>
-              </div>
-            </div>
-
-            <!-- Field Mapping -->
-            <div class="bg-gray-50 rounded-lg p-6 mb-6">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-gray-800">Field
-                  Mapping</h3>
-                <button id="add-mapping"
-                  class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors inline-flex items-center text-sm">
-                  <i class="fas fa-plus mr-2"></i>
-                  Tambah Mapping
-                </button>
-              </div>
-
-              <div id="field-mappings" class="space-y-4">
-                <!-- Field mapping rows will be added here -->
-              </div>
-            </div>
-
-            <!-- Similarity Threshold -->
-            <div class="bg-blue-50 rounded-lg p-6 mb-6">
-              <h3 class="text-lg font-semibold text-gray-800 mb-4">Pengaturan
-                Akurasi Global</h3>
-              <div class="flex items-center space-x-4">
-                <label class="text-sm font-medium text-gray-700">Overall Minimum
-                  Akurasi:</label>
-                <input type="range" id="similarity-threshold" min="0" max="100"
-                  value="50"
-                  class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                <div class="flex items-center space-x-2">
-                  <input type="number" id="threshold-input" min="0" max="100"
-                    value="50"
-                    class="w-16 px-2 py-1 text-center border border-gray-300 rounded text-sm focus:ring-blue-500 focus:border-blue-500">
-                  <span class="text-sm text-gray-600">%</span>
-                </div>
-              </div>
-              <p class="text-sm text-gray-600 mt-2">
-                <i class="fas fa-info-circle text-blue-500 mr-1"></i>
-                Data harus memenuhi akurasi minimum <strong>per field</strong> DAN akurasi <strong>keseluruhan</strong> untuk dianggap cocok
-              </p>
-            </div>
-
-            <div class="text-center">
-              <button id="process-matching"
-                class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors inline-flex items-center">
-                <i class="fas fa-search mr-2"></i>
-                Mulai Pencocokan Data
-              </button>
-            </div>
-          </div>
         </div>
 
-        <!-- Step 3: Results -->
-        <div id="results-section" class="section-container hidden">
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200">
-            <div class="p-8 border-b border-gray-200">
-              <h2 class="text-2xl font-bold text-gray-800 mb-2">
-                <i class="fas fa-chart-line text-purple-600 mr-3"></i>
-                Hasil Pencocokan Data
-              </h2>
-              <p class="text-gray-600">Analisis dan perbandingan data berhasil
-                diselesaikan</p>
-            </div>
-
-            <!-- Summary Statistics -->
-            <div class="p-8 border-b border-gray-200">
-              <div id="summary-stats"
-                class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <!-- Summary cards will be loaded here -->
-              </div>
-            </div>
-
-            <!-- Results Tabs -->
-            <div class="p-8">
-              <div class="border-b border-gray-200 mb-6">
-                <div class="flex justify-between items-center">
-                  <nav class="flex space-x-8">
-                    <button id="matched-tab"
-                      class="result-tab active py-2 px-1 border-b-2 font-medium text-sm">
-                      <i class="fas fa-check-circle mr-2"></i>
-                      Data yang Cocok
-                    </button>
-                    <button id="unmatched-tab"
-                      class="result-tab py-2 px-1 border-b-2 font-medium text-sm">
-                      <i class="fas fa-exclamation-triangle mr-2"></i>
-                      Data Tidak Cocok
-                    </button>
-                  </nav>
-
-                  <div class="flex space-x-3">
-                    <button id="export-matched"
-                      class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors inline-flex items-center text-sm">
-                      <i class="fas fa-file-excel mr-2"></i>
-                      Export Data Cocok
-                    </button>
-                    <button id="export-unmatched"
-                      class="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition-colors inline-flex items-center text-sm">
-                      <i class="fas fa-file-excel mr-2"></i>
-                      Export Data Tidak Cocok
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Search Box -->
-              <div class="search-container">
-                <div class="relative">
-                  <i class="fas fa-search search-icon"></i>
-                  <input type="text" id="table-search"
-                    placeholder="Cari data..."
-                    class="search-input w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
-                </div>
-              </div>
-
-              <div id="matched-results" class="result-content">
-                <!-- Matched data table will be loaded here -->
-              </div>
-
-              <div id="unmatched-results" class="result-content hidden">
-                <!-- Unmatched data table will be loaded here -->
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Reset Button -->
-        <div class="text-center mt-8">
-          <button id="reset-btn"
-            class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors inline-flex items-center hidden">
-            <i class="fas fa-redo mr-2"></i>
-            Reset & Upload Ulang
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Loading Overlay -->
-    <div id="loading"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-      <div class="bg-white rounded-lg p-8 max-w-sm mx-4 text-center">
-        <div
-          class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-        <p class="text-gray-700 font-medium">Memproses data...</p>
-        <p class="text-gray-500 text-sm mt-2">Mohon tunggu sebentar</p>
-      </div>
-    </div>
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
         let sessionData = null;
         let mappingCount = 0;
 
@@ -692,7 +749,7 @@
             mappingCount++;
             const mappingHtml = `
                 <div class="field-mapping-row bg-white border border-gray-200 rounded-lg p-4" data-mapping-id="${mappingCount}">
-                    <div class="grid grid-cols-1 md:grid-cols-7 gap-4 items-center">
+                    <div class="grid grid-cols-1 md:grid-cols-8 gap-4 items-center">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Field File 1</label>
                             <div class="searchable-dropdown">
@@ -717,6 +774,18 @@
                             <div class="flex items-center space-x-2">
                                 <input type="number" class="field-accuracy-input w-16 px-2 py-2 text-center border border-gray-300 rounded text-sm focus:ring-blue-500 focus:border-blue-500" min="0" max="100" value="50" placeholder="50">
                                 <span class="text-xs text-gray-600">%</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Priority Field</label>
+                            <div class="flex items-center justify-center">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="priority-checkbox sr-only">
+                                    <div class="relative">
+                                        <div class="w-10 h-6 bg-gray-200 rounded-full shadow-inner transition-colors duration-200 ease-in-out"></div>
+                                        <div class="dot absolute w-4 h-4 bg-white rounded-full shadow -left-1 -top-1 transition-transform duration-200 ease-in-out transform"></div>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                         <div class="text-center">
@@ -826,12 +895,14 @@
                 const field1 = $(this).find('.field1-input').attr('data-selected');
                 const field2 = $(this).find('.field2-input').attr('data-selected');
                 const fieldAccuracy = parseInt($(this).find('.field-accuracy-input').val()) || 50;
+                const isPriority = $(this).find('.priority-checkbox').is(':checked');
                 
                 if (field1 && field2) {
                     fieldMappings.push({ 
                         field1, 
                         field2, 
-                        min_accuracy: fieldAccuracy 
+                        min_accuracy: fieldAccuracy,
+                        is_priority: isPriority
                     });
                 }
             });
@@ -969,7 +1040,10 @@
                                     <th colspan="3" class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider ${index === 0 ? 'border-l-2' : 'border-l'} border-gray-400">
                                         <div class="flex flex-col">
                                             <span>${mapping.field1} ↔ ${mapping.field2}</span>
-                                            <span class="text-xs font-normal text-purple-600">(Min: ${mapping.min_accuracy || 50}%)</span>
+                                            <div class="flex items-center justify-center space-x-2 text-xs font-normal">
+                                                <span class="text-purple-600">(Min: ${mapping.min_accuracy || 50}%)</span>
+                                                ${mapping.is_priority ? '<span class="bg-red-500 text-white px-2 py-1 rounded text-xs"><i class="fas fa-star mr-1"></i>PRIORITY</span>' : ''}
+                                            </div>
                                         </div>
                                     </th>
                                 `).join('')}
@@ -998,12 +1072,17 @@
                 const accuracyClass = item.overall_accuracy >= 80 ? 'bg-green-100 text-green-800 border-green-300' : 
                                     item.overall_accuracy >= 60 ? 'bg-yellow-100 text-yellow-800 border-yellow-300' : 'bg-red-100 text-red-800 border-red-300';
                 
+                // Add priority match indicator
+                const priorityIndicator = item.priority_match ? 
+                    '<div class="flex items-center justify-center mt-1"><span class="bg-red-500 text-white text-xs px-2 py-1 rounded"><i class="fas fa-star mr-1"></i>PRIORITY</span></div>' : '';
+                
                 tableHtml += `
                     <tr class="${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 transition-colors duration-200 table-row" data-index="${index}">
                         <td class="px-4 py-4 text-center whitespace-nowrap border-r-2 border-gray-400 sticky-column bg-inherit">
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold border ${accuracyClass}">
                                 ${item.overall_accuracy.toFixed(1)}%
                             </span>
+                            ${priorityIndicator}
                         </td>
                 `;
                 
@@ -1281,5 +1360,5 @@
             }, 10000);
         }
     </script>
-  </body>
+    </body>
 </html>
