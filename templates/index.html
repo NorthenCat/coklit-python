@@ -266,7 +266,8 @@
                             <i class="fas fa-users mr-3"></i>
                             Data Matching - Pencocokan Data Kependudukan
                         </h1>
-                        <p class="text-blue-100 text-lg">Upload dua file Excel
+                        <p class="text-blue-100 text-lg"
+                            id="header-description">Upload file Excel
                             untuk
                             mencocokkan data dengan tingkat akurasi tinggi</p>
                     </div>
@@ -311,63 +312,76 @@
                                 <i class="fas fa-upload text-blue-600 mr-3"></i>
                                 Step 1: Upload File Excel
                             </h2>
-                            <p class="text-gray-600">Pilih dua file Excel atau
+                            <p class="text-gray-600"
+                                id="upload-description">Pilih file Excel atau
                                 CSV yang ingin
-                                dibandingkan</p>
+                                dicocokkan</p>
+                        </div>
+
+                        <!-- File Count Selection -->
+                        <div
+                            class="mb-6 p-6 bg-blue-50 rounded-lg border-2 border-blue-200">
+                            <label
+                                class="block text-sm font-semibold text-gray-800 mb-3">
+                                <i
+                                    class="fas fa-layer-group text-blue-600 mr-2"></i>
+                                Berapa File yang Ingin Dibandingkan?
+                            </label>
+                            <div class="flex gap-3 flex-wrap">
+                                <label
+                                    class="flex items-center justify-center cursor-pointer bg-white p-3 rounded-lg border-2 border-gray-300 hover:border-blue-400 transition-all min-w-[80px]">
+                                    <input type="radio" name="file-count"
+                                        value="1"
+                                        class="w-4 h-4 text-blue-600 focus:ring-blue-500 mr-2">
+                                    <div class="font-semibold text-gray-800">1
+                                        File</div>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center cursor-pointer bg-white p-3 rounded-lg border-2 border-gray-300 hover:border-blue-400 transition-all min-w-[80px]">
+                                    <input type="radio" name="file-count"
+                                        value="2" checked
+                                        class="w-4 h-4 text-blue-600 focus:ring-blue-500 mr-2">
+                                    <div class="font-semibold text-gray-800">2
+                                        File</div>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center cursor-pointer bg-white p-3 rounded-lg border-2 border-gray-300 hover:border-blue-400 transition-all min-w-[80px]">
+                                    <input type="radio" name="file-count"
+                                        value="3"
+                                        class="w-4 h-4 text-blue-600 focus:ring-blue-500 mr-2">
+                                    <div class="font-semibold text-gray-800">3
+                                        File</div>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center cursor-pointer bg-white p-3 rounded-lg border-2 border-gray-300 hover:border-blue-400 transition-all min-w-[80px]">
+                                    <input type="radio" name="file-count"
+                                        value="4"
+                                        class="w-4 h-4 text-blue-600 focus:ring-blue-500 mr-2">
+                                    <div class="font-semibold text-gray-800">4
+                                        File</div>
+                                </label>
+                                <label
+                                    class="flex items-center justify-center cursor-pointer bg-white p-3 rounded-lg border-2 border-gray-300 hover:border-blue-400 transition-all min-w-[80px]">
+                                    <input type="radio" name="file-count"
+                                        value="5"
+                                        class="w-4 h-4 text-blue-600 focus:ring-blue-500 mr-2">
+                                    <div class="font-semibold text-gray-800">5
+                                        File</div>
+                                </label>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-3">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Pilih 1 file untuk cek duplikasi dalam file
+                                tersebut, atau pilih 2-5 file untuk
+                                membandingkan data antar file
+                            </p>
                         </div>
 
                         <form id="upload-form" enctype="multipart/form-data"
                             class="space-y-6">
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="file-upload-area">
-                                    <label
-                                        class="block text-sm font-semibold text-gray-700 mb-2">File
-                                        1 (Excel/CSV)</label>
-                                    <div class="relative">
-                                        <input type="file" id="file1"
-                                            name="file1"
-                                            accept=".xlsx,.xls,.csv" required
-                                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                        <div
-                                            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
-                                            <i
-                                                class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-                                            <p class="text-gray-600">Klik untuk
-                                                upload file</p>
-                                            <p
-                                                class="text-sm text-gray-500 mt-1">Format:
-                                                .xlsx, .xls,
-                                                atau .csv</p>
-                                            <span id="file1-name"
-                                                class="text-sm text-blue-600 font-medium"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="file-upload-area">
-                                    <label
-                                        class="block text-sm font-semibold text-gray-700 mb-2">File
-                                        2 (Excel/CSV)</label>
-                                    <div class="relative">
-                                        <input type="file" id="file2"
-                                            name="file2"
-                                            accept=".xlsx,.xls,.csv" required
-                                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                        <div
-                                            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
-                                            <i
-                                                class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-                                            <p class="text-gray-600">Klik untuk
-                                                upload file</p>
-                                            <p
-                                                class="text-sm text-gray-500 mt-1">Format:
-                                                .xlsx, .xls,
-                                                atau .csv</p>
-                                            <span id="file2-name"
-                                                class="text-sm text-blue-600 font-medium"></span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <!-- Dynamic file upload containers will be inserted here -->
+                            <div id="file-upload-container" class="space-y-4">
+                                <!-- Files will be added dynamically -->
                             </div>
 
                             <div class="text-center">
@@ -378,6 +392,29 @@
                                 </button>
                             </div>
                         </form>
+
+                        <!-- Session History Table -->
+                        <div id="session-history-section"
+                            class="mt-8 pt-6 border-t border-gray-200">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800">
+                                    <i
+                                        class="fas fa-history text-blue-600 mr-2"></i>
+                                    Riwayat Session Sebelumnya
+                                </h3>
+                                <button id="refresh-sessions"
+                                    class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+                                    <i class="fas fa-sync-alt mr-1"></i>
+                                    Refresh
+                                </button>
+                            </div>
+                            <div id="session-history-container">
+                                <div class="text-center py-4 text-gray-500">
+                                    <i class="fas fa-spinner fa-spin mr-2"></i>
+                                    Memuat riwayat session...
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -397,21 +434,8 @@
                         </div>
 
                         <!-- Preview Data -->
-                        <div class="grid md:grid-cols-2 gap-6 mb-8">
-                            <div>
-                                <h3
-                                    class="text-lg font-semibold text-gray-800 mb-3">Preview
-                                    File 1</h3>
-                                <div id="preview1"
-                                    class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-auto"></div>
-                            </div>
-                            <div>
-                                <h3
-                                    class="text-lg font-semibold text-gray-800 mb-3">Preview
-                                    File 2</h3>
-                                <div id="preview2"
-                                    class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-auto"></div>
-                            </div>
+                        <div id="preview-container" class="mb-8">
+                            <!-- Preview will be dynamically generated -->
                         </div>
 
                         <!-- Field Mapping -->
@@ -566,14 +590,39 @@
             </div>
         </div>
 
-        <!-- Loading Overlay -->
+        <!-- Loading Overlay with Progress -->
         <div id="loading"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-            <div class="bg-white rounded-lg p-8 max-w-sm mx-4 text-center">
+            <div class="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
                 <div
                     class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p class="text-gray-700 font-medium">Memproses data...</p>
-                <p class="text-gray-500 text-sm mt-2">Mohon tunggu sebentar</p>
+                <p id="loading-title"
+                    class="text-gray-700 font-medium">Memproses data...</p>
+                <p id="loading-subtitle"
+                    class="text-gray-500 text-sm mt-2">Mohon tunggu sebentar</p>
+
+                <!-- Progress Bar -->
+                <div id="progress-container" class="mt-4 hidden">
+                    <div
+                        class="flex justify-between text-sm text-gray-600 mb-1">
+                        <span id="progress-label">Baris</span>
+                        <span id="progress-text">0 / 0</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div id="progress-bar"
+                            class="bg-blue-600 h-3 rounded-full transition-all duration-300"
+                            style="width: 0%"></div>
+                    </div>
+                    <div
+                        class="flex justify-between text-xs text-gray-500 mt-2">
+                        <span><i
+                                class="fas fa-check-circle text-green-500 mr-1"></i>Cocok:
+                            <span id="progress-matched">0</span></span>
+                        <span><i
+                                class="fas fa-times-circle text-red-500 mr-1"></i>Tidak
+                            Cocok: <span id="progress-unmatched">0</span></span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -582,19 +631,34 @@
         <script>
         let sessionData = null;
         let mappingCount = 0;
+        let progressPollInterval = null;
+        let currentPage = 'upload'; // 'upload', 'fields', 'results'
+        let isNavigating = false; // Prevent multiple simultaneous navigations
+        let currentAjaxRequest = null; // Track current AJAX request
 
         $(document).ready(function() {
             initializeApp();
+            
+            // Handle browser back/forward buttons
+            $(window).on('hashchange', function() {
+                handleHashChange();
+            });
         });
 
         function initializeApp() {
-            // File upload handlers
-            $('#file1, #file2').on('change', function() {
-                const fileName = this.files[0]?.name;
-                if (fileName) {
-                    $(`#${this.id}-name`).text(`File dipilih: ${fileName}`);
-                    $(this).siblings('div').removeClass('border-gray-300').addClass('border-green-400');
-                }
+            // Load session history
+            loadSessionHistory();
+            
+            // Initialize with default file count (2 files)
+            updateFileUploadInputs(2);
+            
+            // Check URL hash and restore page state
+            handleHashChange();
+            
+            // File count change handler
+            $('input[name="file-count"]').on('change', function() {
+                const fileCount = parseInt($(this).val());
+                updateFileUploadInputs(fileCount);
             });
 
             // Threshold slider and input synchronization
@@ -621,7 +685,17 @@
             $('#process-matching').on('click', processMatching);
             
             // Reset button
-            $('#reset-btn').on('click', () => location.reload());
+            $('#reset-btn').on('click', function() {
+                // Clear state and go to upload page
+                sessionData = null;
+                localStorage.removeItem('lastSessionData');
+                localStorage.removeItem('lastSessionTime');
+                window.location.hash = 'upload';
+                location.reload();
+            });
+            
+            // Refresh sessions button
+            $('#refresh-sessions').on('click', loadSessionHistory);
 
             // Result tabs
             $('.result-tab').on('click', function() {
@@ -654,6 +728,650 @@
                 exportData('unmatched');
             });
         }
+        
+        function handleHashChange() {
+            const hash = window.location.hash.slice(1); // Remove #
+            const parts = hash.split('/');
+            const page = parts[0] || 'upload';
+            const sessionId = parts[1] || null;
+            
+            console.log('Hash changed:', page, sessionId);
+            
+            // Cancel any pending request
+            if (currentAjaxRequest) {
+                currentAjaxRequest.abort();
+                currentAjaxRequest = null;
+            }
+            
+            // Prevent multiple simultaneous navigations
+            if (isNavigating) {
+                console.log('Already navigating, skipping...');
+                return;
+            }
+            
+            // Hide loading if shown from previous navigation
+            showLoading(false);
+            
+            if (page === 'results' && sessionId) {
+                // Load results for this session
+                loadResultsPage(sessionId);
+            } else if (page === 'fields' && sessionId) {
+                // Load field selection for this session
+                loadFieldsPage(sessionId);
+            } else if (page === 'upload' || !hash) {
+                // Show upload page
+                showUploadPage();
+            }
+        }
+        
+        function showUploadPage() {
+            currentPage = 'upload';
+            $('#upload-section').removeClass('hidden');
+            $('#field-selection-section').addClass('hidden');
+            $('#results-section').addClass('hidden');
+            $('#reset-btn').addClass('hidden');
+            updateStepIndicator(1);
+        }
+        
+        function loadFieldsPage(sessionId) {
+            // Try to restore from localStorage first
+            try {
+                const savedData = localStorage.getItem('lastSessionData');
+                if (savedData) {
+                    const data = JSON.parse(savedData);
+                    if (data.session_id === sessionId && data.columns1) {
+                        // We have full session data in localStorage
+                        sessionData = data;
+                        showFieldSelection(data);
+                        updateStepIndicator(2);
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.warn('Could not restore from localStorage:', e);
+            }
+            
+            // If not in localStorage, fetch from server
+            restoreSessionFromServer(sessionId, false);
+        }
+        
+        function loadResultsPage(sessionId) {
+            // Always fetch results from server (results data is too large for localStorage)
+            viewMatchingResults(sessionId);
+        }
+        
+        function navigateTo(page, sessionId = null) {
+            if (sessionId) {
+                window.location.hash = `${page}/${sessionId}`;
+            } else {
+                window.location.hash = page;
+            }
+            currentPage = page;
+        }
+        
+        function loadSessionHistory() {
+            $.ajax({
+                url: '/get_sessions_db',
+                type: 'GET',
+                success: function(response) {
+                    const sessions = response.sessions || [];
+                    renderSessionHistory(sessions);
+                },
+                error: function() {
+                    $('#session-history-container').html(`
+                        <div class="text-center py-4 text-gray-500">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            Gagal memuat riwayat session
+                        </div>
+                    `);
+                }
+            });
+        }
+        
+        function renderSessionHistory(sessions) {
+            if (sessions.length === 0) {
+                $('#session-history-container').html(`
+                    <div class="text-center py-6 text-gray-500">
+                        <i class="fas fa-inbox text-4xl mb-3 text-gray-300"></i>
+                        <p>Belum ada riwayat session</p>
+                        <p class="text-sm">Session akan muncul di sini setelah Anda upload file</p>
+                    </div>
+                `);
+                return;
+            }
+            
+            let html = `
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">File</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Progress</th>
+                                <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+            `;
+            
+            sessions.forEach((session, index) => {
+                const date = new Date(session.created_at);
+                const formattedDate = date.toLocaleDateString('id-ID', { 
+                    day: '2-digit', 
+                    month: 'short', 
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                const filenames = (session.filenames || []).join(', ') || 'File tidak diketahui';
+                const truncatedFilenames = filenames.length > 50 ? filenames.substring(0, 47) + '...' : filenames;
+                
+                let statusBadge = '';
+                let statusText = session.status || 'unknown';
+                
+                switch(statusText) {
+                    case 'uploaded':
+                        statusBadge = '<span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Uploaded</span>';
+                        break;
+                    case 'processing':
+                        statusBadge = '<span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full animate-pulse">Processing</span>';
+                        break;
+                    case 'completed':
+                        statusBadge = '<span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Selesai</span>';
+                        break;
+                    default:
+                        statusBadge = '<span class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">-</span>';
+                }
+                
+                let progressText = '-';
+                if (session.progress_total > 0) {
+                    const percent = Math.round((session.progress_current / session.progress_total) * 100);
+                    progressText = `${session.progress_current}/${session.progress_total} (${percent}%)`;
+                }
+                if (session.has_results) {
+                    progressText = `<span class="text-green-600">✓ ${session.matched_count || 0} cocok</span>`;
+                }
+                
+                html += `
+                    <tr class="hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}">
+                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${formattedDate}</td>
+                        <td class="px-4 py-3 text-sm text-gray-600" title="${filenames}">
+                            <span class="text-blue-600 font-medium">${session.file_count || 0} file</span>
+                            <span class="text-gray-400 ml-1">- ${truncatedFilenames}</span>
+                        </td>
+                        <td class="px-4 py-3 whitespace-nowrap">${statusBadge}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${progressText}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-center">
+                            <div class="flex items-center justify-center space-x-2">
+                                ${session.has_checkpoint ? `
+                                    <button onclick="resumeSession('${session.session_id}')" 
+                                        class="text-orange-600 hover:text-orange-800 text-sm" title="Lanjutkan Proses">
+                                        <i class="fas fa-play-circle"></i>
+                                    </button>
+                                ` : ''}
+                                ${session.has_results ? `
+                                    <button onclick="viewMatchingResults('${session.session_id}')" 
+                                        class="text-green-600 hover:text-green-800 text-sm" title="Lihat Hasil Matching">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </button>
+                                ` : `
+                                    <button onclick="restoreSessionFromServer('${session.session_id}')" 
+                                        class="text-blue-600 hover:text-blue-800 text-sm" title="Buka Session">
+                                        <i class="fas fa-folder-open"></i>
+                                    </button>
+                                `}
+                                <button onclick="deleteSession('${session.session_id}')" 
+                                    class="text-red-600 hover:text-red-800 text-sm" title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            $('#session-history-container').html(html);
+        }
+        
+        function deleteSession(sessionId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus session ini?')) {
+                return;
+            }
+            
+            $.ajax({
+                url: `/delete_session/${sessionId}`,
+                type: 'DELETE',
+                success: function() {
+                    loadSessionHistory();
+                    showSuccess('Session berhasil dihapus');
+                },
+                error: function() {
+                    showError('Gagal menghapus session');
+                }
+            });
+        }
+        
+        function resumeSession(sessionId) {
+            // First restore the session
+            restoreSessionFromServer(sessionId, true);
+        }
+        
+        function viewMatchingResults(sessionId) {
+            // Prevent duplicate calls
+            if (isNavigating) {
+                console.log('Already navigating, skipping viewMatchingResults');
+                return;
+            }
+            isNavigating = true;
+            
+            showLoading(true);
+            
+            // Cancel previous request if any
+            if (currentAjaxRequest) {
+                currentAjaxRequest.abort();
+            }
+            
+            currentAjaxRequest = $.ajax({
+                url: `/get_matching_results/${sessionId}`,
+                type: 'GET',
+                success: function(data) {
+                    isNavigating = false;
+                    currentAjaxRequest = null;
+                    showLoading(false);
+                    
+                    // Store session data with all necessary info for export
+                    sessionData = {
+                        session_id: sessionId,
+                        file_count: data.file_count || 2,
+                        has_results: true
+                    };
+                    
+                    // Add filepaths if available
+                    for (let i = 1; i <= (data.file_count || 2); i++) {
+                        if (data[`filepath${i}`]) {
+                            sessionData[`filepath${i}`] = data[`filepath${i}`];
+                        }
+                    }
+                    
+                    // Store in localStorage
+                    try {
+                        localStorage.setItem('lastSessionData', JSON.stringify(sessionData));
+                        localStorage.setItem('lastSessionTime', new Date().toISOString());
+                    } catch (e) {
+                        console.warn('Could not save to localStorage:', e);
+                    }
+                    
+                    // Show results directly
+                    const fieldMappings = data.field_mappings || [];
+                    showResults(data, fieldMappings);
+                    updateStepIndicator(3);
+                    
+                    // Hide upload and field selection sections
+                    $('#upload-section').addClass('hidden');
+                    $('#field-selection-section').addClass('hidden');
+                },
+                error: function(xhr, status) {
+                    isNavigating = false;
+                    currentAjaxRequest = null;
+                    showLoading(false);
+                    
+                    // Don't show error if request was aborted (user navigated away)
+                    if (status === 'abort') {
+                        console.log('Request aborted');
+                        return;
+                    }
+                    
+                    const error = xhr.responseJSON?.error || 'Gagal memuat hasil matching';
+                    showError(error);
+                    // Go back to upload page on error
+                    window.location.hash = 'upload';
+                }
+            });
+        }
+        
+        function showSuccess(message) {
+            const successDiv = $('<div>')
+                .addClass('fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50')
+                .html(`<i class="fas fa-check-circle mr-2"></i>${message}`);
+            
+            $('body').append(successDiv);
+            setTimeout(() => {
+                successDiv.fadeOut(() => successDiv.remove());
+            }, 3000);
+        }
+
+        function checkForRecentSession() {
+            // First check server for available sessions
+            $.ajax({
+                url: '/list_sessions',
+                type: 'GET',
+                success: function(response) {
+                    if (response.sessions && response.sessions.length > 0) {
+                        const latestSession = response.sessions[0];
+                        const sessionTime = new Date(latestSession.created_at);
+                        const now = new Date();
+                        const hoursSinceSession = (now - sessionTime) / (1000 * 60 * 60);
+                        
+                        // If session is less than 24 hours old, offer to restore
+                        if (hoursSinceSession < 24) {
+                            showSessionRestoreBanner(latestSession, hoursSinceSession);
+                        }
+                    } else {
+                        // Fallback to localStorage if no server sessions
+                        checkLocalStorageSession();
+                    }
+                },
+                error: function() {
+                    // Fallback to localStorage if server request fails
+                    checkLocalStorageSession();
+                }
+            });
+        }
+
+        function checkLocalStorageSession() {
+            // Try to restore session from localStorage
+            try {
+                const lastSessionData = localStorage.getItem('lastSessionData');
+                const lastSessionTime = localStorage.getItem('lastSessionTime');
+                
+                if (lastSessionData && lastSessionTime) {
+                    const sessionTime = new Date(lastSessionTime);
+                    const now = new Date();
+                    const hoursSinceSession = (now - sessionTime) / (1000 * 60 * 60);
+                    
+                    // If session is less than 24 hours old, offer to restore
+                    if (hoursSinceSession < 24) {
+                        const sessionDataParsed = JSON.parse(lastSessionData);
+                        showLocalSessionRestoreBanner(sessionDataParsed, hoursSinceSession);
+                    }
+                }
+            } catch (e) {
+                console.warn('Could not check for recent session:', e);
+            }
+        }
+
+        function showSessionRestoreBanner(session, hoursSinceSession) {
+            const fileCount = session.file_count || 0;
+            const hasResults = session.has_results ? ' (dengan hasil matching)' : '';
+            const timeText = hoursSinceSession < 1 ? 
+                `${Math.round(hoursSinceSession * 60)} menit yang lalu` : 
+                `${Math.round(hoursSinceSession)} jam yang lalu`;
+            
+            // Show a notification banner
+            const banner = $(`
+                <div id="session-restore-banner" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-blue-600 text-white px-6 py-4 rounded-lg shadow-2xl max-w-md animate-fade-in">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <p class="font-semibold"><i class="fas fa-history mr-2"></i>Session Sebelumnya Ditemukan</p>
+                            <p class="text-sm mt-1">${fileCount} file${hasResults} - ${timeText}</p>
+                        </div>
+                        <div class="flex gap-2 ml-4">
+                            <button class="restore-session-btn bg-white text-blue-600 px-4 py-2 rounded font-medium hover:bg-gray-100 transition" data-session-id="${session.session_id}">
+                                Restore
+                            </button>
+                            <button class="dismiss-session-btn bg-blue-700 text-white px-4 py-2 rounded font-medium hover:bg-blue-800 transition">
+                                Dismiss
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `);
+            
+            $('body').append(banner);
+            
+            // Restore button handler
+            banner.find('.restore-session-btn').on('click', function() {
+                const sessionId = $(this).data('session-id');
+                restoreSessionFromServer(sessionId);
+                banner.fadeOut(() => banner.remove());
+            });
+            
+            // Dismiss button handler
+            banner.find('.dismiss-session-btn').on('click', function() {
+                banner.fadeOut(() => banner.remove());
+            });
+            
+            // Auto-dismiss after 15 seconds
+            setTimeout(() => {
+                if (banner.is(':visible')) {
+                    banner.fadeOut(() => banner.remove());
+                }
+            }, 15000);
+        }
+
+        function showLocalSessionRestoreBanner(sessionData, hoursSinceSession) {
+            const fileCount = sessionData.file_count || 2;
+            const timeText = hoursSinceSession < 1 ? 
+                `${Math.round(hoursSinceSession * 60)} menit yang lalu` : 
+                `${Math.round(hoursSinceSession)} jam yang lalu`;
+            
+            // Show a notification banner
+            const banner = $(`
+                <div id="session-restore-banner" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl max-w-md">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <p class="font-semibold"><i class="fas fa-save mr-2"></i>Session Lokal Ditemukan</p>
+                            <p class="text-sm mt-1">${fileCount} file - ${timeText}</p>
+                        </div>
+                        <div class="flex gap-2 ml-4">
+                            <button id="restore-local-session-btn" class="bg-white text-green-600 px-4 py-2 rounded font-medium hover:bg-gray-100 transition">
+                                Restore
+                            </button>
+                            <button id="dismiss-local-session-btn" class="bg-green-700 text-white px-4 py-2 rounded font-medium hover:bg-green-800 transition">
+                                Dismiss
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `);
+            
+            $('body').append(banner);
+            
+            // Restore button handler
+            $('#restore-local-session-btn').on('click', function() {
+                restoreSessionLocal(sessionData);
+                banner.fadeOut(() => banner.remove());
+            });
+            
+            // Dismiss button handler
+            $('#dismiss-local-session-btn').on('click', function() {
+                banner.fadeOut(() => banner.remove());
+            });
+            
+            // Auto-dismiss after 15 seconds
+            setTimeout(() => {
+                banner.fadeOut(() => banner.remove());
+            }, 15000);
+        }
+
+        function restoreSessionFromServer(sessionId, shouldResume = false) {
+            console.log('Restoring session from server:', sessionId, 'Resume:', shouldResume);
+            
+            // Prevent duplicate calls
+            if (isNavigating) {
+                console.log('Already navigating, skipping restoreSessionFromServer');
+                return;
+            }
+            isNavigating = true;
+            
+            showLoading(true);
+            
+            // Cancel previous request if any
+            if (currentAjaxRequest) {
+                currentAjaxRequest.abort();
+            }
+            
+            currentAjaxRequest = $.ajax({
+                url: `/restore_session/${sessionId}`,
+                type: 'GET',
+                success: function(data) {
+                    isNavigating = false;
+                    currentAjaxRequest = null;
+                    console.log('Session restored from server:', data);
+                    
+                    // Set global session data
+                    sessionData = data;
+                    sessionData.session_id = sessionId;
+                    
+                    // Store in localStorage
+                    try {
+                        localStorage.setItem('lastSessionData', JSON.stringify(data));
+                        localStorage.setItem('lastSessionTime', new Date().toISOString());
+                    } catch (e) {
+                        console.warn('Could not save to localStorage:', e);
+                    }
+                    
+                    // Move to field selection step
+                    showFieldSelection(data);
+                    updateStepIndicator(2);
+                    
+                    showLoading(false);
+                    
+                    // If should resume, check for checkpoint and auto-start
+                    if (shouldResume) {
+                        $.ajax({
+                            url: `/get_progress/${sessionId}`,
+                            type: 'GET',
+                            success: function(progressData) {
+                                if (progressData.status === 'paused' && progressData.current > 0) {
+                                    // Show resume confirmation
+                                    if (confirm(`Proses sebelumnya berhenti di baris ${progressData.current} dari ${progressData.total}. Lanjutkan dari posisi tersebut?`)) {
+                                        // Need to set up field mappings first, then trigger processMatching with resume
+                                        showSuccess(`Session di-restore. Silakan klik "Mulai Pencocokan Data" untuk melanjutkan dari baris ${progressData.current}.`);
+                                        // Store resume position
+                                        sessionData.resumeFrom = progressData.current;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    
+                    // Show success message
+                    const successDiv = $('<div>')
+                        .addClass('fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50')
+                        .html(`
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle mr-3 text-xl"></i>
+                                <div>
+                                    <p class="font-semibold">Session Berhasil Di-restore!</p>
+                                    <p class="text-sm">Anda dapat melanjutkan dari langkah sebelumnya.</p>
+                                </div>
+                            </div>
+                        `);
+                    
+                    $('body').append(successDiv);
+                    setTimeout(() => {
+                        successDiv.fadeOut(() => successDiv.remove());
+                    }, 5000);
+                },
+                error: function(xhr, status) {
+                    isNavigating = false;
+                    currentAjaxRequest = null;
+                    showLoading(false);
+                    
+                    // Don't show error if request was aborted
+                    if (status === 'abort') {
+                        console.log('Request aborted');
+                        return;
+                    }
+                    
+                    const error = xhr.responseJSON?.error || 'Gagal restore session dari server';
+                    showError(error);
+                }
+            });
+        }
+
+        function restoreSessionLocal(data) {
+            console.log('Restoring session from localStorage:', data);
+            
+            // Set global session data
+            sessionData = data;
+            
+            // Move to field selection step
+            showFieldSelection(data);
+            updateStepIndicator(2);
+            
+            // Show success message
+            const successDiv = $('<div>')
+                .addClass('fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50')
+                .html(`
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle mr-3 text-xl"></i>
+                        <div>
+                            <p class="font-semibold">Session Lokal Berhasil Di-restore!</p>
+                            <p class="text-sm">Anda dapat melanjutkan dari langkah sebelumnya.</p>
+                        </div>
+                    </div>
+                `);
+            
+            $('body').append(successDiv);
+            setTimeout(() => {
+                successDiv.fadeOut(() => successDiv.remove());
+            }, 5000);
+        }
+
+        function updateFileUploadInputs(fileCount) {
+            const container = $('#file-upload-container');
+            container.empty();
+            
+            // Determine grid layout based on file count
+            let gridClass = 'grid gap-4 ';
+            if (fileCount === 1) {
+                gridClass += 'md:grid-cols-1';
+            } else if (fileCount === 2) {
+                gridClass += 'md:grid-cols-2';
+            } else if (fileCount === 3) {
+                gridClass += 'md:grid-cols-3';
+            } else if (fileCount >= 4) {
+                gridClass += 'md:grid-cols-2 lg:grid-cols-3';
+            }
+            
+            const gridContainer = $(`<div class="${gridClass}"></div>`);
+            
+            // Create file upload inputs
+            for (let i = 1; i <= fileCount; i++) {
+                const fileHtml = `
+                    <div class="file-upload-area">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            File ${i} (Excel/CSV)
+                        </label>
+                        <div class="relative">
+                            <input type="file" id="file${i}" name="file${i}"
+                                accept=".xlsx,.xls,.csv" required
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-600">Klik untuk upload file</p>
+                                <p class="text-sm text-gray-500 mt-1">Format: .xlsx, .xls, atau .csv</p>
+                                <span id="file${i}-name" class="text-sm text-blue-600 font-medium block mt-2"></span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                gridContainer.append(fileHtml);
+            }
+            
+            container.append(gridContainer);
+            
+            // Attach change handlers to new file inputs
+            for (let i = 1; i <= fileCount; i++) {
+                $(`#file${i}`).on('change', function() {
+                    const fileName = this.files[0]?.name;
+                    if (fileName) {
+                        $(`#file${i}-name`).text(`✓ ${fileName}`);
+                        $(this).siblings('div').removeClass('border-gray-300').addClass('border-green-400');
+                    }
+                });
+            }
+        }
 
         function handleFileUpload(e) {
             e.preventDefault();
@@ -661,6 +1379,12 @@
             console.log('DEBUG: handleFileUpload called');
             
             const formData = new FormData(this);
+            
+            // Add file count to form data
+            const fileCount = parseInt($('input[name="file-count"]:checked').val());
+            formData.append('file_count', fileCount);
+            
+            console.log('DEBUG: File count:', fileCount);
             console.log('DEBUG: FormData created');
             
             // Log form data contents
@@ -683,10 +1407,22 @@
                 success: function(data, textStatus, xhr) {
                     console.log('DEBUG: Upload successful!', data);
                     console.log('DEBUG: Response status:', xhr.status);
+                    
+                    // Store session data globally
                     sessionData = data;
+                    
+                    // Store in localStorage for persistence
+                    try {
+                        localStorage.setItem('lastSessionData', JSON.stringify(data));
+                        localStorage.setItem('lastSessionTime', new Date().toISOString());
+                    } catch (e) {
+                        console.warn('Could not save to localStorage:', e);
+                    }
+                    
                     showFieldSelection(data);
                     showLoading(false);
                     updateStepIndicator(2);
+                    loadSessionHistory(); // Refresh session history
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     console.error('DEBUG: Upload error!');
@@ -722,12 +1458,56 @@
         }
 
         function showFieldSelection(data) {
+            currentPage = 'fields';
             $('#upload-section').addClass('hidden');
             $('#field-selection-section').removeClass('hidden');
+            $('#results-section').addClass('hidden');
+            
+            // Update URL hash without triggering hashchange
+            if (data.session_id && window.location.hash !== `#fields/${data.session_id}`) {
+                history.replaceState(null, '', `#fields/${data.session_id}`);
+            }
 
-            // Show preview data
-            displayPreview('#preview1', data.sample_data1, 'File 1');
-            displayPreview('#preview2', data.sample_data2, 'File 2');
+            // Show preview data for all files
+            const previewContainer = $('#preview-container');
+            previewContainer.empty();
+            
+            const fileCount = data.file_count || 2;
+            let gridClass = 'grid gap-6 mb-8 ';
+            if (fileCount === 1) {
+                gridClass += 'md:grid-cols-1';
+            } else if (fileCount === 2) {
+                gridClass += 'md:grid-cols-2';
+            } else if (fileCount === 3) {
+                gridClass += 'md:grid-cols-3';
+            } else {
+                gridClass += 'md:grid-cols-2 lg:grid-cols-3';
+            }
+            
+            const gridDiv = $(`<div class="${gridClass}"></div>`);
+            
+            // Create preview for each file
+            for (let i = 1; i <= fileCount; i++) {
+                const previewDiv = $(`
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Preview File ${i}</h3>
+                        <div id="preview${i}" class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-auto"></div>
+                    </div>
+                `);
+                gridDiv.append(previewDiv);
+                
+                // Display preview data
+                const sampleData = data[`sample_data${i}`];
+                if (Array.isArray(sampleData)) {
+                    displayPreview(`#preview${i}`, sampleData, `File ${i}`);
+                } else {
+                    // Show explicit fallback so missing preview doesn't look broken.
+                    displayPreview(`#preview${i}`, [], `File ${i}`);
+                    console.warn(`Preview data not available for file ${i}`, sampleData);
+                }
+            }
+            
+            previewContainer.append(gridDiv);
 
             // Initialize field mappings
             $('#field-mappings').empty();
@@ -736,68 +1516,77 @@
             // Add initial mapping if common fields exist
             if (data.common_columns && data.common_columns.length > 0) {
                 data.common_columns.slice(0, 2).forEach(field => {
-                    addFieldMapping(null, field, field);
+                    addFieldMapping(null, data);
                 });
             } else {
-                addFieldMapping();
+                addFieldMapping(null, data);
             }
         }
 
-        function addFieldMapping(event, file1Field = '', file2Field = '') {
+        function addFieldMapping(event, data = null) {
             if (event) event.preventDefault();
             
+            if (!sessionData && !data) {
+                console.error('No session data available');
+                return;
+            }
+            
+            const fileCount = (data || sessionData).file_count || 2;
             mappingCount++;
-            const mappingHtml = `
-                <div class="field-mapping-row bg-white border border-gray-200 rounded-lg p-4" data-mapping-id="${mappingCount}">
-                    <div class="grid grid-cols-1 md:grid-cols-8 gap-4 items-center">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Field File 1</label>
-                            <div class="searchable-dropdown">
-                                <input type="text" class="field1-input w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pilih atau ketik nama kolom..." autocomplete="off" data-selected="">
-                                <i class="fas fa-chevron-down dropdown-arrow"></i>
-                                <div class="dropdown-list field1-list"></div>
-                            </div>
+            
+            // Build dropdown columns for each file
+            let dropdownsHtml = '';
+            for (let i = 1; i <= fileCount; i++) {
+                const columns = (data || sessionData)[`columns${i}`] || [];
+                dropdownsHtml += `
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Field File ${i}</label>
+                        <div class="searchable-dropdown">
+                            <input type="text" class="field${i}-input w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500" 
+                                placeholder="Pilih kolom..." autocomplete="off" data-selected="" data-file="${i}">
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                            <div class="dropdown-list field${i}-list"></div>
                         </div>
+                    </div>
+                `;
+                if (i < fileCount) {
+                    dropdownsHtml += `
                         <div class="text-center text-gray-400 text-xl">
                             <i class="fas fa-arrow-right"></i>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Field File 2</label>
-                            <div class="searchable-dropdown">
-                                <input type="text" class="field2-input w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pilih atau ketik nama kolom..." autocomplete="off" data-selected="">
-                                <i class="fas fa-chevron-down dropdown-arrow"></i>
-                                <div class="dropdown-list field2-list"></div>
+                    `;
+                }
+            }
+            
+            const mappingHtml = `
+                <div class="field-mapping-row bg-white border border-gray-200 rounded-lg p-4" data-mapping-id="${mappingCount}">
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="grid grid-cols-${Math.min(fileCount * 2 - 1, 7)} gap-4 items-center">
+                            ${dropdownsHtml}
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Min. Akurasi</label>
+                                <div class="flex items-center space-x-2">
+                                    <input type="number" class="field-accuracy-input w-16 px-2 py-2 text-center border border-gray-300 rounded text-sm focus:ring-blue-500 focus:border-blue-500" min="0" max="100" value="50" placeholder="50">
+                                    <span class="text-xs text-gray-600">%</span>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Min. Akurasi</label>
-                            <div class="flex items-center space-x-2">
-                                <input type="number" class="field-accuracy-input w-16 px-2 py-2 text-center border border-gray-300 rounded text-sm focus:ring-blue-500 focus:border-blue-500" min="0" max="100" value="50" placeholder="50">
-                                <span class="text-xs text-gray-600">%</span>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                                <div class="flex items-center justify-center">
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="priority-checkbox sr-only">
+                                        <div class="relative">
+                                            <div class="w-10 h-6 bg-gray-200 rounded-full shadow-inner transition-colors duration-200 ease-in-out"></div>
+                                            <div class="dot absolute w-4 h-4 bg-white rounded-full shadow -left-1 -top-1 transition-transform duration-200 ease-in-out transform"></div>
+                                        </div>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Priority Field</label>
-                            <div class="flex items-center justify-center">
-                                <label class="inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" class="priority-checkbox sr-only">
-                                    <div class="relative">
-                                        <div class="w-10 h-6 bg-gray-200 rounded-full shadow-inner transition-colors duration-200 ease-in-out"></div>
-                                        <div class="dot absolute w-4 h-4 bg-white rounded-full shadow -left-1 -top-1 transition-transform duration-200 ease-in-out transform"></div>
-                                    </div>
-                                </label>
+                            <div class="text-center">
+                                <button type="button" class="remove-mapping text-red-600 hover:text-red-800 p-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </div>
-                        </div>
-                        <div class="text-center">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                <i class="fas fa-link mr-1"></i>
-                                Map ${mappingCount}
-                            </span>
-                        </div>
-                        <div class="text-center">
-                            <button type="button" class="remove-mapping text-red-600 hover:text-red-800 p-2">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -805,10 +1594,17 @@
             
             $('#field-mappings').append(mappingHtml);
             
-            // Populate dropdowns
+            // Populate dropdowns for each file
             const newRow = $(`.field-mapping-row[data-mapping-id="${mappingCount}"]`);
-            populateSearchableDropdown(newRow.find('.field1-input'), newRow.find('.field1-list'), sessionData.columns1, file1Field);
-            populateSearchableDropdown(newRow.find('.field2-input'), newRow.find('.field2-list'), sessionData.columns2, file2Field);
+            for (let i = 1; i <= fileCount; i++) {
+                const columns = (data || sessionData)[`columns${i}`] || [];
+                populateSearchableDropdown(
+                    newRow.find(`.field${i}-input`), 
+                    newRow.find(`.field${i}-list`), 
+                    columns, 
+                    ''
+                );
+            }
             
             // Remove button handler
             newRow.find('.remove-mapping').on('click', function() {
@@ -888,22 +1684,28 @@
             });
         }
 
-        function processMatching() {
+        function processMatching(resumeFrom = 0) {
             const fieldMappings = [];
+            const fileCount = sessionData.file_count || 2;
             
             $('.field-mapping-row').each(function() {
-                const field1 = $(this).find('.field1-input').attr('data-selected');
-                const field2 = $(this).find('.field2-input').attr('data-selected');
-                const fieldAccuracy = parseInt($(this).find('.field-accuracy-input').val()) || 50;
-                const isPriority = $(this).find('.priority-checkbox').is(':checked');
+                const mapping = { fields: {} };
+                let allFieldsSelected = true;
                 
-                if (field1 && field2) {
-                    fieldMappings.push({ 
-                        field1, 
-                        field2, 
-                        min_accuracy: fieldAccuracy,
-                        is_priority: isPriority
-                    });
+                // Collect fields from all files
+                for (let i = 1; i <= fileCount; i++) {
+                    const fieldValue = $(this).find(`.field${i}-input`).attr('data-selected');
+                    if (!fieldValue) {
+                        allFieldsSelected = false;
+                        break;
+                    }
+                    mapping.fields[`field${i}`] = fieldValue;
+                }
+                
+                if (allFieldsSelected) {
+                    mapping.min_accuracy = parseInt($(this).find('.field-accuracy-input').val()) || 50;
+                    mapping.is_priority = $(this).find('.priority-checkbox').is(':checked');
+                    fieldMappings.push(mapping);
                 }
             });
 
@@ -912,14 +1714,33 @@
                 return;
             }
 
-            const requestData = {
-                filepath1: sessionData.filepath1,
-                filepath2: sessionData.filepath2,
-                field_mappings: fieldMappings,
-                similarity_threshold: parseInt($('#similarity-threshold').val())
-            };
+            // Check if we should resume from a previous position
+            const actualResumeFrom = parseInt(resumeFrom) || parseInt(sessionData.resumeFrom) || 0;
+            if (actualResumeFrom > 0) {
+                // Clear the resume position after using it
+                delete sessionData.resumeFrom;
+            }
 
-            showLoading(true);
+            const requestData = {
+                file_count: parseInt(fileCount),
+                filepaths: {},
+                field_mappings: fieldMappings,
+                similarity_threshold: parseInt($('#similarity-threshold').val()) || 50,
+                session_id: sessionData.session_id,
+                resume_from: parseInt(actualResumeFrom) || 0
+            };
+            
+            // Add all filepaths
+            for (let i = 1; i <= fileCount; i++) {
+                requestData.filepaths[`filepath${i}`] = sessionData[`filepath${i}`];
+            }
+
+            showLoading(true, true); // Show loading with progress
+            
+            // Start progress polling
+            if (sessionData.session_id) {
+                startProgressPolling(sessionData.session_id);
+            }
 
             $.ajax({
                 url: '/process_matching',
@@ -927,25 +1748,50 @@
                 contentType: 'application/json',
                 data: JSON.stringify(requestData),
                 success: function(data) {
+                    stopProgressPolling();
+                    
+                    // Update sessionData with results info
+                    sessionData.has_results = true;
+                    if (data.session_id) {
+                        sessionData.session_id = data.session_id;
+                    }
+                    
+                    // Save to localStorage
+                    try {
+                        localStorage.setItem('lastSessionData', JSON.stringify(sessionData));
+                        localStorage.setItem('lastSessionTime', new Date().toISOString());
+                    } catch (e) {
+                        console.warn('Could not save to localStorage:', e);
+                    }
+                    
                     showResults(data, fieldMappings);
                     showLoading(false);
                     updateStepIndicator(3);
+                    loadSessionHistory(); // Refresh session history
                 },
                 error: function(xhr) {
+                    stopProgressPolling();
                     const error = xhr.responseJSON?.error || 'Error processing matching';
                     showError(error);
                     showLoading(false);
+                    loadSessionHistory(); // Refresh session history
                 }
             });
         }
 
         function displayPreview(selector, data, title) {
             if (!data || data.length === 0) {
-                $(selector).html(`<p class="text-gray-500 text-center py-4">No data to preview</p>`);
+                $(selector).html(`<p class="text-gray-500 text-center py-4">${title}: No data to preview</p>`);
                 return;
             }
 
-            const columns = Object.keys(data[0]);
+            const firstValidRow = data.find(row => row && typeof row === 'object');
+            if (!firstValidRow) {
+                $(selector).html(`<p class="text-gray-500 text-center py-4">${title}: No data to preview</p>`);
+                return;
+            }
+
+            const columns = Object.keys(firstValidRow);
             let tableHtml = `
                 <div class="overflow-x-auto">
                     <table class="min-w-full text-xs">
@@ -955,54 +1801,126 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            ${data.slice(0, 3).map(row => `
+                            ${data.slice(0, 10).map(row => `
                                 <tr>
-                                    ${columns.map(col => `<td class="px-3 py-2 text-gray-900">${row[col] || ''}</td>`).join('')}
+                                    ${columns.map(col => {
+                                        const value = row && Object.prototype.hasOwnProperty.call(row, col) ? row[col] : '';
+                                        return `<td class="px-3 py-2 text-gray-900">${value ?? ''}</td>`;
+                                    }).join('')}
                                 </tr>
                             `).join('')}
                         </tbody>
                     </table>
                 </div>
+                <p class="text-xs text-gray-500 mt-2">Menampilkan ${Math.min(data.length, 10)} baris preview pertama</p>
             `;
             $(selector).html(tableHtml);
         }
 
         function showResults(data, fieldMappings) {
+            currentPage = 'results';
+            $('#upload-section').addClass('hidden');
             $('#field-selection-section').addClass('hidden');
             $('#results-section').removeClass('hidden');
             $('#reset-btn').removeClass('hidden');
+            
+            // Update URL hash without triggering hashchange
+            const sid = data.session_id || sessionData?.session_id;
+            if (sid && window.location.hash !== `#results/${sid}`) {
+                history.replaceState(null, '', `#results/${sid}`);
+            }
 
-            // Display summary statistics
-            const summary = data.summary;
-            $('#summary-stats').html(`
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-blue-600">${summary.total_file1}</div>
-                    <div class="text-sm text-blue-800 font-medium">Total File 1</div>
-                </div>
-                <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-indigo-600">${summary.total_file2}</div>
-                    <div class="text-sm text-indigo-800 font-medium">Total File 2</div>
-                </div>
+            // Display summary statistics dynamically based on file count
+            const summary = data.summary || {};
+            let fileCount = data.file_count || sessionData?.file_count || 2;
+            const matchingMode = data.matching_mode || 'compare';
+            
+            // Also detect file count from data if not provided
+            const hasFile3Data = data.matched_data?.some(item => item.comparison_file === 3) || 
+                                data.unmatched_data?.some(item => item.comparison_file === 3);
+            if (hasFile3Data && fileCount < 3) {
+                fileCount = 3;
+            }
+            
+            let summaryHtml = '';
+            
+            // Build file total cards based on matching mode
+            if (matchingMode === 'self' || matchingMode === 'single-file' || fileCount === 1) {
+                // Single file mode - show total records only
+                summaryHtml += `
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-blue-600">${summary.total_file1 || 0}</div>
+                        <div class="text-sm text-blue-800 font-medium">Total Data</div>
+                    </div>
+                `;
+            } else {
+                // Multiple files mode - show File 1 reference
+                summaryHtml += `
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-blue-600">${summary.total_file1 || 0}</div>
+                        <div class="text-sm text-blue-800 font-medium">Total File 1 (Referensi)</div>
+                    </div>
+                `;
+                
+                // Show comparison files info for multi-file mode
+                if (fileCount > 2 || matchingMode === 'multi') {
+                    // Count matches per comparison file
+                    const matchedByFile = {};
+                    const unmatchedByFile = {};
+                    
+                    (data.matched_data || []).forEach(item => {
+                        const cf = item.comparison_file || 2;
+                        matchedByFile[cf] = (matchedByFile[cf] || 0) + 1;
+                    });
+                    (data.unmatched_data || []).forEach(item => {
+                        const cf = item.comparison_file || 2;
+                        unmatchedByFile[cf] = (unmatchedByFile[cf] || 0) + 1;
+                    });
+                    
+                    summaryHtml += `
+                        <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-orange-600">${fileCount - 1}</div>
+                            <div class="text-sm text-orange-800 font-medium">File Pembanding</div>
+                            <div class="text-xs text-orange-600 mt-1">
+                                ${Object.keys(matchedByFile).map(f => `File ${f}: ${matchedByFile[f] || 0} cocok`).join(', ')}
+                            </div>
+                        </div>
+                    `;
+                } else if (summary.total_file2) {
+                    // 2 files mode - show file 2 total
+                    summaryHtml += `
+                        <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-indigo-600">${summary.total_file2 || 0}</div>
+                            <div class="text-sm text-indigo-800 font-medium">Total File 2</div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Always show matched and unmatched counts
+            summaryHtml += `
                 <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-green-600">${summary.matched_count}</div>
+                    <div class="text-2xl font-bold text-green-600">${summary.matched_count || 0}</div>
                     <div class="text-sm text-green-800 font-medium">Data Cocok</div>
                 </div>
                 <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-yellow-600">${summary.unmatched_count}</div>
+                    <div class="text-2xl font-bold text-yellow-600">${summary.unmatched_count || 0}</div>
                     <div class="text-sm text-yellow-800 font-medium">Data Tidak Cocok</div>
                 </div>
-            `);
+            `;
+            
+            $('#summary-stats').html(summaryHtml);
 
-            // Display data tables
-            displayResultsTable('#matched-results', data.matched_data, fieldMappings, true);
-            displayResultsTable('#unmatched-results', data.unmatched_data, fieldMappings, false);
+            // Display data tables with file count
+            displayResultsTable('#matched-results', data.matched_data, fieldMappings, true, fileCount);
+            displayResultsTable('#unmatched-results', data.unmatched_data, fieldMappings, false, fileCount);
 
             // Update tab labels
-            $('#matched-tab').html(`<i class="fas fa-check-circle mr-2"></i>Data yang Cocok (${summary.matched_count})`);
-            $('#unmatched-tab').html(`<i class="fas fa-exclamation-triangle mr-2"></i>Data Tidak Cocok (${summary.unmatched_count})`);
+            $('#matched-tab').html(`<i class="fas fa-check-circle mr-2"></i>Data yang Cocok (${summary.matched_count || 0})`);
+            $('#unmatched-tab').html(`<i class="fas fa-exclamation-triangle mr-2"></i>Data Tidak Cocok (${summary.unmatched_count || 0})`);
         }
 
-        function displayResultsTable(selector, data, fieldMappings, isMatched) {
+        function displayResultsTable(selector, data, fieldMappings, isMatched, fileCount) {
             if (!data || data.length === 0) {
                 $(selector).html('<p class="text-gray-500 text-center py-8">Tidak ada data untuk ditampilkan</p>');
                 return;
@@ -1012,17 +1930,44 @@
             $(selector).data('originalData', data);
             $(selector).data('fieldMappings', fieldMappings);
             $(selector).data('isMatched', isMatched);
+            $(selector).data('fileCount', fileCount || sessionData?.file_count || 2);
 
-            renderTable(selector, data, fieldMappings, isMatched);
+            renderTable(selector, data, fieldMappings, isMatched, fileCount);
         }
 
-        function renderTable(selector, data, fieldMappings, isMatched) {
+        function renderTable(selector, data, fieldMappings, isMatched, fileCount) {
+            // Get file count from data or sessionData - also detect from data itself
+            let actualFileCount = fileCount || sessionData?.file_count || 2;
+            
+            // Auto-detect multi-file mode from data: check if any item has comparison_file > 2
+            const hasComparisonFile3Plus = data.some(item => item.comparison_file && item.comparison_file > 2);
+            const hasAnyComparisonFile = data.some(item => item.comparison_file !== undefined);
+            
+            // If we detect comparison_file in data, use that to determine multi-file mode
+            if (hasComparisonFile3Plus) {
+                actualFileCount = Math.max(actualFileCount, 3);
+            }
+            
+            const hasMultipleComparisons = actualFileCount > 2 || hasComparisonFile3Plus || hasAnyComparisonFile;
+            
+            console.log('DEBUG renderTable: fileCount=', fileCount, 'actualFileCount=', actualFileCount, 'hasMultipleComparisons=', hasMultipleComparisons, 'hasComparisonFile3Plus=', hasComparisonFile3Plus);
+            
             // Get fields only from the mappings for better organization
-            const displayFields = fieldMappings.map(mapping => ({
-                field1: mapping.field1,
-                field2: mapping.field2,
-                label: `${mapping.field1} ↔ ${mapping.field2}`
-            }));
+            // Handle both formats: {field1, field2} and {fields: {field1, field2, field3...}}
+            const displayFields = fieldMappings.map(mapping => {
+                // Check if it's multi-file format (has 'fields' property)
+                const field1 = mapping.fields?.field1 || mapping.field1;
+                const field2 = mapping.fields?.field2 || mapping.field2;
+                return {
+                    field1: field1,
+                    field2: field2,
+                    min_accuracy: mapping.min_accuracy || 50,
+                    is_priority: mapping.is_priority || false,
+                    label: `${field1 || 'N/A'} ↔ ${field2 || 'N/A'}`
+                };
+            });
+            
+            console.log('DEBUG displayFields:', displayFields);
 
             let tableHtml = `
                 <div class="overflow-auto rounded-lg border-2 border-gray-300 shadow-lg" style="max-height: 500px; overflow-y: auto;">
@@ -1036,12 +1981,21 @@
                                     </div>
                                     <i class="fas fa-sort sort-icon"></i>
                                 </th>
+                                ${hasMultipleComparisons ? `
+                                    <th rowspan="2" class="sortable-header w-24 px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider border-r border-gray-400 bg-orange-100" data-field="comparison_file">
+                                        <div class="flex flex-col">
+                                            <span>File</span>
+                                            <span>Pembanding</span>
+                                        </div>
+                                        <i class="fas fa-sort sort-icon"></i>
+                                    </th>
+                                ` : ''}
                                 ${displayFields.map((mapping, index) => `
                                     <th colspan="3" class="px-4 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider ${index === 0 ? 'border-l-2' : 'border-l'} border-gray-400">
                                         <div class="flex flex-col">
                                             <span>${mapping.field1} ↔ ${mapping.field2}</span>
                                             <div class="flex items-center justify-center space-x-2 text-xs font-normal">
-                                                <span class="text-purple-600">(Min: ${mapping.min_accuracy || 50}%)</span>
+                                                <span class="text-purple-600">(Min: ${mapping.min_accuracy}%)</span>
                                                 ${mapping.is_priority ? '<span class="bg-red-500 text-white px-2 py-1 rounded text-xs"><i class="fas fa-star mr-1"></i>PRIORITY</span>' : ''}
                                             </div>
                                         </div>
@@ -1055,7 +2009,7 @@
                                         <i class="fas fa-sort sort-icon"></i>
                                     </th>
                                     <th class="sortable-header px-3 py-2 text-xs font-semibold text-green-700 text-center border-l border-gray-300 bg-green-50" data-field="${mapping.field2}" data-file="2">
-                                        File 2: ${mapping.field2}
+                                        ${hasMultipleComparisons ? 'Pembanding' : 'File 2'}: ${mapping.field2}
                                         <i class="fas fa-sort sort-icon"></i>
                                     </th>
                                     <th class="sortable-header px-2 py-2 text-xs font-semibold text-purple-700 text-center border-l border-gray-300 bg-purple-50" data-field="${mapping.field1}_${mapping.field2}_accuracy">
@@ -1069,36 +2023,59 @@
             `;
 
             data.forEach((item, index) => {
-                const accuracyClass = item.overall_accuracy >= 80 ? 'bg-green-100 text-green-800 border-green-300' : 
-                                    item.overall_accuracy >= 60 ? 'bg-yellow-100 text-yellow-800 border-yellow-300' : 'bg-red-100 text-red-800 border-red-300';
+                const overallAccuracy = typeof item.overall_accuracy === 'number' ? item.overall_accuracy : 0;
+                const accuracyClass = overallAccuracy >= 80 ? 'bg-green-100 text-green-800 border-green-300' : 
+                                    overallAccuracy >= 60 ? 'bg-yellow-100 text-yellow-800 border-yellow-300' : 'bg-red-100 text-red-800 border-red-300';
                 
                 // Add priority match indicator
                 const priorityIndicator = item.priority_match ? 
                     '<div class="flex items-center justify-center mt-1"><span class="bg-red-500 text-white text-xs px-2 py-1 rounded"><i class="fas fa-star mr-1"></i>PRIORITY</span></div>' : '';
                 
+                // Get comparison file number for multi-file mode
+                const comparisonFile = item.comparison_file || 2;
+                
+                // Different colors for different comparison files
+                const comparisonFileColors = {
+                    2: 'bg-blue-100 text-blue-800',
+                    3: 'bg-orange-100 text-orange-800',
+                    4: 'bg-purple-100 text-purple-800',
+                    5: 'bg-pink-100 text-pink-800'
+                };
+                const comparisonFileColor = comparisonFileColors[comparisonFile] || 'bg-indigo-100 text-indigo-800';
+                
                 tableHtml += `
                     <tr class="${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 transition-colors duration-200 table-row" data-index="${index}">
                         <td class="px-4 py-4 text-center whitespace-nowrap border-r-2 border-gray-400 sticky-column bg-inherit">
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold border ${accuracyClass}">
-                                ${item.overall_accuracy.toFixed(1)}%
+                                ${overallAccuracy.toFixed(1)}%
                             </span>
                             ${priorityIndicator}
                         </td>
+                        ${hasMultipleComparisons ? `
+                            <td class="px-4 py-4 text-center whitespace-nowrap border-r border-gray-400 bg-inherit">
+                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-bold ${comparisonFileColor}">
+                                    File ${comparisonFile}
+                                </span>
+                            </td>
+                        ` : ''}
                 `;
                 
-                displayFields.forEach((mapping, index) => {
-                    // Get values with proper fallback
-                    const value1 = item.file1_data?.[mapping.field1];
-                    const value2 = item.file2_data?.[mapping.field2];
+                displayFields.forEach((mapping, fieldIndex) => {
+                    // Get values with proper fallback - handle undefined, null, and empty
+                    const value1 = item.file1_data && item.file1_data[mapping.field1] !== undefined ? item.file1_data[mapping.field1] : null;
+                    const value2 = item.file2_data && item.file2_data[mapping.field2] !== undefined ? item.file2_data[mapping.field2] : null;
                     
-                    const displayValue1 = value1 !== undefined && value1 !== null && value1 !== '' ? 
+                    const displayValue1 = value1 !== null && value1 !== '' ? 
                         String(value1).trim() : '<span class="text-gray-400 italic">Kosong</span>';
-                    const displayValue2 = value2 !== undefined && value2 !== null && value2 !== '' ? 
+                    const displayValue2 = value2 !== null && value2 !== '' ? 
                         String(value2).trim() : '<span class="text-gray-400 italic">Kosong</span>';
                     
-                    // Get field accuracy
+                    // Get field accuracy - try both formats
                     const mappingKey = `${mapping.field1}_${mapping.field2}`;
-                    const fieldAccuracy = item.field_accuracies?.[mappingKey] || 0;
+                    let fieldAccuracy = 0;
+                    if (item.field_accuracies) {
+                        fieldAccuracy = item.field_accuracies[mappingKey] || item.field_accuracies[mapping.field1] || 0;
+                    }
                     const requiredAccuracy = mapping.min_accuracy || 50;
                     const meetsRequirement = fieldAccuracy >= requiredAccuracy;
                     
@@ -1109,7 +2086,7 @@
                     }
                     
                     tableHtml += `
-                        <td class="px-3 py-4 text-sm text-gray-900 whitespace-nowrap ${index === 0 ? 'border-l-2' : 'border-l'} border-gray-400 bg-blue-25">
+                        <td class="px-3 py-4 text-sm text-gray-900 whitespace-nowrap ${fieldIndex === 0 ? 'border-l-2' : 'border-l'} border-gray-400 bg-blue-25">
                             <div class="max-w-40 truncate" title="${String(value1 || '').replace(/"/g, '&quot;')}">${displayValue1}</div>
                         </td>
                         <td class="px-3 py-4 text-sm text-gray-900 whitespace-nowrap border-l border-gray-300 bg-green-25">
@@ -1129,20 +2106,39 @@
                 tableHtml += `</tr>`;
             });
 
+            // Build legend based on file count
+            let legendHtml = `
+                <div class="flex items-center"><div class="w-3 h-3 bg-blue-25 border border-blue-200 mr-1"></div>Data File 1 (Referensi)</div>
+                <div class="flex items-center"><div class="w-3 h-3 bg-green-25 border border-green-200 mr-1"></div>${hasMultipleComparisons ? 'Data File Pembanding' : 'Data File 2'}</div>
+                <div class="flex items-center"><div class="w-3 h-3 bg-purple-50 border border-purple-200 mr-1"></div>Field Accuracy</div>
+            `;
+            
+            // Add file comparison legend for multi-file mode
+            if (hasMultipleComparisons) {
+                legendHtml += `
+                    <div class="flex items-center gap-1 ml-2 pl-2 border-l border-gray-300">
+                        <span class="text-gray-500">Warna File:</span>
+                        <span class="px-1 py-0.5 text-xs rounded bg-blue-100 text-blue-800">File 2</span>
+                        <span class="px-1 py-0.5 text-xs rounded bg-orange-100 text-orange-800">File 3</span>
+                        <span class="px-1 py-0.5 text-xs rounded bg-purple-100 text-purple-800">File 4</span>
+                        <span class="px-1 py-0.5 text-xs rounded bg-pink-100 text-pink-800">File 5</span>
+                    </div>
+                `;
+            }
+
             tableHtml += `
                         </tbody>
                     </table>
                 </div>
-                <div class="mt-4 text-xs text-gray-500 flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <div class="flex items-center"><div class="w-3 h-3 bg-blue-25 border border-blue-200 mr-1"></div>Data File 1</div>
-                        <div class="flex items-center"><div class="w-3 h-3 bg-green-25 border border-green-200 mr-1"></div>Data File 2</div>
-                        <div class="flex items-center"><div class="w-3 h-3 bg-purple-50 border border-purple-200 mr-1"></div>Field Accuracy</div>
-                        <div class="text-gray-600">• ✓ = Memenuhi syarat, ✗ = Tidak memenuhi</div>
-                        <div class="text-gray-600">• Hover pada data untuk melihat nilai lengkap</div>
+                <div class="mt-4 text-xs text-gray-500 flex items-center justify-between flex-wrap gap-2">
+                    <div class="flex items-center flex-wrap space-x-4 gap-y-2">
+                        ${legendHtml}
                     </div>
-                    <div class="text-gray-600">
-                        Menampilkan ${data.length} dari ${$(selector).data('originalData')?.length || data.length} data
+                    <div class="flex items-center gap-4">
+                        <div class="text-gray-600">• ✓ = Memenuhi syarat, ✗ = Tidak memenuhi</div>
+                        <div class="text-gray-600">
+                            Menampilkan ${data.length} dari ${$(selector).data('originalData')?.length || data.length} data
+                        </div>
                     </div>
                 </div>
             `;
@@ -1164,6 +2160,7 @@
             const originalData = $(selector).data('originalData');
             const fieldMappings = $(selector).data('fieldMappings');
             const isMatched = $(selector).data('isMatched');
+            const fileCount = $(selector).data('fileCount') || sessionData?.file_count || 2;
 
             // Toggle sort direction if same field
             if (currentSortField === field) {
@@ -1177,8 +2174,11 @@
                 let valueA, valueB;
 
                 if (field === 'overall_accuracy') {
-                    valueA = a.overall_accuracy;
-                    valueB = b.overall_accuracy;
+                    valueA = a.overall_accuracy || 0;
+                    valueB = b.overall_accuracy || 0;
+                } else if (field === 'comparison_file') {
+                    valueA = a.comparison_file || 2;
+                    valueB = b.comparison_file || 2;
                 } else if (field.endsWith('_accuracy')) {
                     // Field accuracy sorting
                     const mappingKey = field.replace('_accuracy', '');
@@ -1212,7 +2212,7 @@
             activeHeader.find('.sort-icon').addClass('active').removeClass('fa-sort')
                 .addClass(currentSortDirection === 'asc' ? 'fa-sort-up' : 'fa-sort-down');
 
-            renderTable(selector, sortedData, fieldMappings, isMatched);
+            renderTable(selector, sortedData, fieldMappings, isMatched, fileCount);
         }
 
         function searchTable() {
@@ -1223,9 +2223,10 @@
             const originalData = $(selector).data('originalData');
             const fieldMappings = $(selector).data('fieldMappings');
             const isMatched = $(selector).data('isMatched');
+            const fileCount = $(selector).data('fileCount') || sessionData?.file_count || 2;
 
             if (!searchTerm) {
-                renderTable(selector, originalData, fieldMappings, isMatched);
+                renderTable(selector, originalData, fieldMappings, isMatched, fileCount);
                 return;
             }
 
@@ -1252,7 +2253,7 @@
                 return false;
             });
 
-            renderTable(selector, filteredData, fieldMappings, isMatched);
+            renderTable(selector, filteredData, fieldMappings, isMatched, fileCount);
         }
 
         function exportData(type) {
@@ -1261,11 +2262,17 @@
                 return;
             }
 
-            const exportData = {
+            const fileCount = sessionData.file_count || 2;
+            const exportPayload = {
                 type: type,
-                filepath1: sessionData.filepath1,
-                filepath2: sessionData.filepath2
+                session_id: sessionData.session_id,
+                file_count: fileCount
             };
+            
+            // Add all filepaths
+            for (let i = 1; i <= fileCount; i++) {
+                exportPayload[`filepath${i}`] = sessionData[`filepath${i}`];
+            }
 
             showLoading(true);
 
@@ -1273,7 +2280,7 @@
                 url: '/export',
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify(exportData),
+                data: JSON.stringify(exportPayload),
                 xhrFields: {
                     responseType: 'blob'
                 },
@@ -1328,11 +2335,66 @@
             }
         }
 
-        function showLoading(show) {
+        function showLoading(show, showProgress = false) {
             if (show) {
                 $('#loading').removeClass('hidden');
+                $('#loading-title').text('Memproses data...');
+                $('#loading-subtitle').text('Mohon tunggu sebentar');
+                
+                if (showProgress) {
+                    $('#progress-container').removeClass('hidden');
+                    $('#progress-bar').css('width', '0%');
+                    $('#progress-text').text('0 / 0');
+                    $('#progress-matched').text('0');
+                    $('#progress-unmatched').text('0');
+                } else {
+                    $('#progress-container').addClass('hidden');
+                }
             } else {
                 $('#loading').addClass('hidden');
+                $('#progress-container').addClass('hidden');
+            }
+        }
+        
+        function startProgressPolling(sessionId) {
+            // Clear any existing interval
+            stopProgressPolling();
+            
+            // Poll every 500ms
+            progressPollInterval = setInterval(() => {
+                $.ajax({
+                    url: `/get_progress/${sessionId}`,
+                    type: 'GET',
+                    success: function(data) {
+                        if (data.total > 0) {
+                            const percent = Math.round((data.current / data.total) * 100);
+                            $('#progress-bar').css('width', `${percent}%`);
+                            $('#progress-text').text(`${data.current} / ${data.total}`);
+                            $('#loading-subtitle').text(data.message || `Memproses baris ${data.current} dari ${data.total}`);
+                            
+                            if (data.matched_count !== undefined) {
+                                $('#progress-matched').text(data.matched_count);
+                            }
+                            if (data.unmatched_count !== undefined) {
+                                $('#progress-unmatched').text(data.unmatched_count);
+                            }
+                            
+                            if (data.status === 'completed') {
+                                stopProgressPolling();
+                            }
+                        }
+                    },
+                    error: function() {
+                        console.warn('Failed to get progress');
+                    }
+                });
+            }, 500);
+        }
+        
+        function stopProgressPolling() {
+            if (progressPollInterval) {
+                clearInterval(progressPollInterval);
+                progressPollInterval = null;
             }
         }
 
@@ -1359,6 +2421,37 @@
                 errorDiv.fadeOut(() => errorDiv.remove());
             }, 10000);
         }
+
+        // Handle mode selection change
+        $(document).ready(function() {
+            $('input[name="matching-mode"]').on('change', function() {
+                const mode = $(this).val();
+                const file2Container = $('#file2-container');
+                const file2Input = $('#file2');
+                const uploadGrid = $('#file-upload-grid');
+                const file1Label = $('#file1-label');
+                const headerDesc = $('#header-description');
+                const uploadDesc = $('#upload-description');
+                
+                if (mode === 'single-file') {
+                    // Single file mode
+                    file2Container.hide();
+                    file2Input.prop('required', false);
+                    uploadGrid.removeClass('md:grid-cols-2').addClass('md:grid-cols-1');
+                    file1Label.text('Upload File (Excel/CSV)');
+                    headerDesc.text('Upload file Excel untuk mencocokkan data dalam satu file');
+                    uploadDesc.text('Pilih file Excel atau CSV untuk dicek duplikasi/kecocokan internal');
+                } else {
+                    // Two files mode
+                    file2Container.show();
+                    file2Input.prop('required', true);
+                    uploadGrid.removeClass('md:grid-cols-1').addClass('md:grid-cols-2');
+                    file1Label.text('File 1 (Excel/CSV)');
+                    headerDesc.text('Upload file Excel untuk mencocokkan data dengan tingkat akurasi tinggi');
+                    uploadDesc.text('Pilih file Excel atau CSV yang ingin dicocokkan');
+                }
+            });
+        });
     </script>
     </body>
 </html>
