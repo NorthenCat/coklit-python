@@ -22,7 +22,10 @@ Aplikasi web modern untuk mencocokkan data kependudukan dari dua file Excel deng
 # Clone atau download project ini
 cd coklit-python
 
-# Pastikan virtual environment sudah aktif
+# Buat virtual environment
+python -m venv .venv
+
+# Masuk ke mode virtual environment
 source .venv/bin/activate  # Linux/Mac
 # atau
 .venv\Scripts\activate     # Windows
